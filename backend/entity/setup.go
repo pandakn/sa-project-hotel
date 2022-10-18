@@ -6,10 +6,10 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var Db *gorm.DB
 
 func DB() *gorm.DB {
-	return db
+	return Db
 }
 
 func SetupDatabase() {
@@ -25,9 +25,13 @@ func SetupDatabase() {
 		&Admin{},
 		&RoomType{},
 		&RoomZone{},
+		&Department{},
+		&Position{},
+		&Salary{},
+		&Employee{},
 	)
 
-	db = database
+	Db = database
 
 	passwordA, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
 	// Admin
@@ -36,7 +40,7 @@ func SetupDatabase() {
 		Username: "keemknkx",
 		Password: string(passwordA),
 	}
-	db.Model(&Admin{}).Create(&AdminA)
+	Db.Model(&Admin{}).Create(&AdminA)
 
 	passwordB, _ := bcrypt.GenerateFromPassword([]byte("admin"), 14)
 	AdminB := Admin{
@@ -44,7 +48,7 @@ func SetupDatabase() {
 		Username: "admin",
 		Password: string(passwordB),
 	}
-	db.Model(&Admin{}).Create(&AdminB)
+	Db.Model(&Admin{}).Create(&AdminB)
 
 	// RoomType
 	RoomTypeA := RoomType{
@@ -53,7 +57,7 @@ func SetupDatabase() {
 		Bed:      "1 single bed",
 		RoomSize: "25 m^2",
 	}
-	db.Model(&RoomType{}).Create(&RoomTypeA)
+	Db.Model(&RoomType{}).Create(&RoomTypeA)
 
 	RoomTypeB := RoomType{
 		Name:     "Delux",
@@ -61,7 +65,7 @@ func SetupDatabase() {
 		Bed:      "2 single beds",
 		RoomSize: "30 m^2",
 	}
-	db.Model(&RoomType{}).Create(&RoomTypeB)
+	Db.Model(&RoomType{}).Create(&RoomTypeB)
 
 	RoomTypeC := RoomType{
 		Name:     "Suite",
@@ -69,47 +73,47 @@ func SetupDatabase() {
 		Bed:      "1 king bed",
 		RoomSize: "40 m^2",
 	}
-	db.Model(&RoomType{}).Create(&RoomTypeC)
+	Db.Model(&RoomType{}).Create(&RoomTypeC)
 
 	// RoomZone
 	RoomZoneA := RoomZone{
 		Zone:        "A",
 		Description: "โซน A เป็นโซนที่ใกล้กับสระว่ายน้ำและฟิตเนต",
 	}
-	db.Model(&RoomZone{}).Create(&RoomZoneA)
+	Db.Model(&RoomZone{}).Create(&RoomZoneA)
 
 	RoomZoneB := RoomZone{
 		Zone:        "B",
 		Description: "โซน B จะอยู่ใกล้กับศูนย์อาหาร",
 	}
-	db.Model(&RoomZone{}).Create(&RoomZoneB)
+	Db.Model(&RoomZone{}).Create(&RoomZoneB)
 
 	RoomZoneC := RoomZone{
 		Zone:        "C",
 		Description: "โซน C ใกล้กับสนามหญ้าและโซนของเด็กๆ",
 	}
-	db.Model(&RoomZone{}).Create(&RoomZoneC)
+	Db.Model(&RoomZone{}).Create(&RoomZoneC)
 
 	// Room (main entity)
-	db.Model(&Room{}).Create(&Room{
+	Db.Model(&Room{}).Create(&Room{
 		RoomNumber: "102",
 		RoomZone:   RoomZoneA,
 		RoomType:   RoomTypeC,
 		Admin:      AdminA,
 	})
-	db.Model(&Room{}).Create(&Room{
+	Db.Model(&Room{}).Create(&Room{
 		RoomNumber: "301",
 		RoomZone:   RoomZoneB,
 		RoomType:   RoomTypeA,
 		Admin:      AdminB,
 	})
-	db.Model(&Room{}).Create(&Room{
+	Db.Model(&Room{}).Create(&Room{
 		RoomNumber: "205",
 		RoomZone:   RoomZoneC,
 		RoomType:   RoomTypeB,
 		Admin:      AdminA,
 	})
-	db.Model(&Room{}).Create(&Room{
+	Db.Model(&Room{}).Create(&Room{
 		RoomNumber: "304",
 		RoomZone:   RoomZoneA,
 		RoomType:   RoomTypeB,

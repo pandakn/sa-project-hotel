@@ -20,9 +20,10 @@ function Sidebar() {
           bgcolor: "#8BBCCC",
           position: "absolute",
           p: 2,
+          pt: 10,
           top: 0,
           left: 0,
-          height: "100vh",
+          minHeight: "100vh",
         }}
       >
         <Box

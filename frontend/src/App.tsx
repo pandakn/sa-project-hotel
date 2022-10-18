@@ -6,8 +6,8 @@ import Index from "./routes/Index";
 import Admin from "./routes/Admin";
 import Login from "./components/Login";
 import Home from "./components/Home";
-import Employee from "./components/Employee";
 import CreateRoom from "./components/CreateRoom";
+import CreateEmployee from "./components/CreateEmployee";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Route path="/" element={<Index />}></Route>
       <Route path="/admin" element={<Admin />}>
         <Route path="create-room" element={<CreateRoom />} />
-        <Route path="employee" element={<Employee />} />
+        <Route path="employee" element={<CreateEmployee />} />
       </Route>
       <Route path="/login" element={<Login />} />
     </Routes>

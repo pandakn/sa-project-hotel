@@ -121,6 +121,7 @@ function CreateRoom() {
           display: "flex",
           justifyContent: "center",
           width: "100%",
+          ml: 10
         }}
       >
         <Box
