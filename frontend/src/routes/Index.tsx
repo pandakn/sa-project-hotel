@@ -6,7 +6,6 @@ const Index = () => {
   return (
     <div>
       <Index />
-      <Login />
     </div>
   )
 };

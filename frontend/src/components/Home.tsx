@@ -1,17 +1,49 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import { makeStyles } from '@mui/material';
+import { Box, Button, Stack } from "@mui/material";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+// import image
+import homeBg from "../assets/images/home.jpg";
+
+const menu = [
+  { name: "User", path: "user"},
+  { name: "Admin", path: "admin", icon: <AdminPanelSettingsIcon /> },
+];
 
 function Home() {
   return (
     <div>
-      {/* <Outlet /> */}
-      <div >
-        <img src="https://images.unsplash.com/photo-1521783988139-89397d761dce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1925&q=80" alt="" />
-      </div>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          overflow: "hidden",
+          backgroundSize: "cover",
+          color: "#f5f5f5",
+          backgroundImage: `url(${homeBg})`,
+        }}
+      >
+        {menu.map((item) => {
+          return (
+            <Stack direction="row" spacing={5}>
+            <Button variant="contained" startIcon={<AdminPanelSettingsIcon />}>
+            <Link
+                to="admin"
+                style={{ textDecoration: "none", color: "#fff" }}
+              >
+                {item.name}
+              </Link>
+            </Button>
+
+          </Stack>
+          );
+        })}
+      </Box>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

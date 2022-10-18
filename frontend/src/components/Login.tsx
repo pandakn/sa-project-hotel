@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -179,6 +181,9 @@ function Login() {
               >
                 Sign In
               </Button>
+              <Link to="/" style={{color: "#252525", textDecoration: "none", display:"flex", justifyContent:"center"}}>
+                กลับหน้าแรก
+              </Link>
             </Box>
           </Box>
         </Grid>

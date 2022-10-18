@@ -175,7 +175,7 @@ function CreateRoom() {
             >
               <TextField
                 required
-                type="string"
+                type="string" 
                 fullWidth
                 id="roomNumber"
                 label="เลขห้อง"
