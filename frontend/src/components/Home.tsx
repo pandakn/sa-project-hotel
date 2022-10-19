@@ -1,15 +1,11 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import { Box, Button, Stack } from "@mui/material";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
+import { Box, Button, Typography  } from "@mui/material";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 // import image
 import homeBg from "../assets/images/home.jpg";
-
-const menu = [
-  { name: "User", path: "user"},
-  { name: "Admin", path: "admin", icon: <AdminPanelSettingsIcon /> },
-];
 
 function Home() {
   return (
@@ -17,8 +13,10 @@ function Home() {
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          gap: 5,
           height: "100vh",
           overflow: "hidden",
           backgroundSize: "cover",
@@ -26,21 +24,22 @@ function Home() {
           backgroundImage: `url(${homeBg})`,
         }}
       >
-        {menu.map((item) => {
-          return (
-            <Stack direction="row" spacing={5}>
-            <Button variant="contained" startIcon={<AdminPanelSettingsIcon />}>
-            <Link
-                to="admin"
-                style={{ textDecoration: "none", color: "#fff" }}
-              >
-                {item.name}
-              </Link>
-            </Button>
-
-          </Stack>
-          );
-        })}
+        <Typography variant="h1" >
+          Welcome to Hotel
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 5,
+          }}
+        >
+          <Button variant="contained" startIcon={<AccountCircleIcon />}>
+            <Link to="user" style={{color: "#fff", textDecoration: "none", fontSize: "1.2rem"}}>User</Link>
+          </Button>
+          <Button variant="contained" startIcon={<AdminPanelSettingsIcon />}>
+            <Link to="admin" style={{color: "#fff", textDecoration: "none", fontSize: "1.2rem"}}>Admin</Link>
+          </Button>
+        </Box>
       </Box>
     </div>
   );

@@ -40,6 +40,7 @@ function CreateRoom() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
+    console.log(event.target.value)
     const name = event.target.name as keyof typeof room;
     setRoom({
       ...room,
@@ -82,6 +83,8 @@ function CreateRoom() {
     fetchRoomZones();
     fetchAdminByID();
   }, []);
+
+  console.log(room);
 
   const convertType = (data: string | number | undefined) => {
     let val = typeof data === "string" ? parseInt(data) : data;
@@ -180,6 +183,7 @@ function CreateRoom() {
                 label="เลขห้อง"
                 value={room.RoomNumber}
                 onChange={(e) => {
+                  console.log(e.target.value);
                   setRoom({
                     ...room,
                     RoomNumber: e.target.value,
@@ -209,7 +213,7 @@ function CreateRoom() {
                 <option aria-label="None" value="">
                   โซนห้องพัก
                 </option>
-                {roomZone.map((item) => (
+                {roomZone.map((item, idx) => (
                   <option key={item.ID} value={item.ID}>
                     {item.Zone}
                   </option>
