@@ -9,6 +9,6 @@ export interface RoomsInterface {
   RoomZone?: RoomZonesInterface,
   RoomTypeID?: number,
   RoomType?: RoomTypesInterface,
-  Admin?: string,
-  AdminID?: AdminInterface
+  AdminID?:number,
+  Admin?: AdminInterface,
 }
