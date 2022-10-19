@@ -26,7 +26,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 const theme = createTheme();
 
-function Login() {
+function SignIn() {
   // Partial จะช่วยให้ ทุกฟิลด์ใน interface กลายเป็น optional
   const [login, setLogin] = useState<Partial<LoginInterface>>({});
   const [success, setSuccess] = useState(false);
@@ -192,4 +192,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignIn;

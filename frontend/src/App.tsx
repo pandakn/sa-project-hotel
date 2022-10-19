@@ -4,7 +4,7 @@ import { Router, Routes, Route, Link } from "react-router-dom";
 import Index from "./routes/Index";
 import Admin from "./routes/Admin";
 import User from "./routes/User";
-import Login from "./components/Login";
+import SignIn from "./components/Signin";
 import CreateRoom from "./components/CreateRoom";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Route path="create-room" element={<CreateRoom />} />
         {/* <Route path="employee" element={<Employee />} /> */}
       </Route>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<SignIn />} />
     </Routes>
   );
 }
