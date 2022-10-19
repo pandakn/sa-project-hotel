@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import Login from "../components/Login";
+import Login from "../components/SignIn";
 
 import CreateRoom from "../components/CreateRoom";
 import Navbar from "../components/Navbar";

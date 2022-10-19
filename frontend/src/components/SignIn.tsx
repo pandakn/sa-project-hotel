@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,7 +14,10 @@ import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+// import interface and services
 import { LoginInterface } from "../models/ILogin";
+import { Login } from "../services/HttpClientService";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -26,7 +28,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 const theme = createTheme();
 
-function Login() {
+function SignIn() {
   // Partial จะช่วยให้ ทุกฟิลด์ใน interface กลายเป็น optional
   const [login, setLogin] = useState<Partial<LoginInterface>>({});
   const [success, setSuccess] = useState(false);
@@ -38,6 +40,7 @@ function Login() {
     const id = event.target.id as keyof typeof login;
     const { value } = event.target;
     setLogin({ ...login, [id]: value });
+    console.log(login);
   };
 
   const handleClose = (
@@ -49,29 +52,6 @@ function Login() {
     }
     setSuccess(false);
     setError(false);
-  };
-
-  const Login = async (data: LoginInterface) => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-
-    let res = await fetch("http://localhost:8080/login", requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("uid", res.data.id);
-          console.log(res.data);
-          return res.data;
-        } else {
-          return false;
-        }
-      });
-
-    return res;
   };
 
   const submit = async () => {
@@ -181,7 +161,15 @@ function Login() {
               >
                 Sign In
               </Button>
-              <Link to="/" style={{color: "#252525", textDecoration: "none", display:"flex", justifyContent:"center"}}>
+              <Link
+                to="/"
+                style={{
+                  color: "#252525",
+                  textDecoration: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
                 กลับหน้าแรก
               </Link>
             </Box>
@@ -192,4 +180,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignIn;
