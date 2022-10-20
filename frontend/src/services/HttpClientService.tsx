@@ -31,6 +31,16 @@ const requestOptionsGet = {
   headers: { "Content-Type": "application/json" },
 };
 
+const GetRooms = async () => {
+  let res = await fetch(`${apiUrl}/rooms`)
+    .then((response) => response.json())
+    .then((result) => {
+      return result.data ? result.data : false;
+    });
+
+  return res;
+};
+
 const GetRoomTypes = async () => {
   let res = await fetch(`${apiUrl}/room-types`)
     .then((response) => response.json())
@@ -89,4 +99,11 @@ const CreateRooms = async (data: RoomsInterface) => {
   return res;
 };
 
-export { GetAdminByID, GetRoomTypes, GetRoomZones, CreateRooms, Login };
+export {
+  GetAdminByID,
+  GetRoomTypes,
+  GetRoomZones,
+  CreateRooms,
+  Login,
+  GetRooms,
+};
