@@ -1,0 +1,18 @@
+.animation {
+  font-size: 3rem;
+  text-transform: capitalize;
+  
+  /* Animation */
+  animation: title 1.8s ease;
+}
+
+@keyframes title {
+  0%   { 
+    opacity: 0;
+      transform: translateY(50px); 
+  }
+  100% { 
+      transform: translateY(0); 
+      opacity: 1;
+  }
+}

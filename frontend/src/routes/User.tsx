@@ -1,61 +1,78 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { RoomsInterface } from "../models/IRoom";
+import { RoomTypesInterface } from "../models/IRoomTypes";
+
 import MediaCard from "../components/MediaCard";
-import { Box, Button, Typography } from "@mui/material";
+
+import { GetRoomTypes } from "../services/HttpClientService";
+
+import { Link } from "react-router-dom";
+import { Box, Button } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
-const hotel = [
-  {
-    title: "standard",
-    price: 1000,
-    img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    title: "delux",
-    price: 2000,
-    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    title: "suite",
-    price: 3000,
-    img: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1174&q=80",
-  },
-];
-
 function User() {
+  const [roomTypes, setRoomTypes] = useState<Partial<RoomTypesInterface[]>>([]);
+
+  const fetchRooms = async () => {
+    let res = await GetRoomTypes();
+    setRoomTypes(res);
+  };
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  console.log(roomTypes);
+
   return (
     <div>
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          overflow: "hidden",
-          gap: 5,
           height: "100vh",
+          overflow: "hidden",
+          // bgcolor: "#f5f5f5"
         }}
       >
-        {hotel.map((item) => (
-          <MediaCard title={item.title} price={item.price} img={item.img} />
-        ))}
+        <Box
+          sx={{
+            display: "flex",
+            gap: 5,
+            // height: "100vh",
+          }}
+        >
+          {roomTypes.map((item) => (
+            <MediaCard
+              key={item?.ID}
+              title={item?.Name!}
+              price={item?.Price!}
+              bed={item?.Bed!}
+              size={item?.RoomSize!}
+              img="https://images.unsplash.com/photo-1455587734955-081b22074882?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+            />
+          ))}
+        </Box>
+        <Button
+          variant="contained"
+          startIcon={<KeyboardBackspaceIcon />}
+          style={{
+            textTransform: "capitalize",
+            marginTop: "2rem",
+            fontSize: "1rem",
+            borderRadius: 36,
+            backgroundColor: "#3e8af7",
+            padding: "18px 36px",
+            // fontSize: "18px",
+          }}
+        >
+          <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
+            Back
+          </Link>
+        </Button>
       </Box>
-      <Button
-        variant="contained"
-        startIcon={<KeyboardBackspaceIcon />}
-        style={{
-          textTransform: "capitalize",
-          position: "absolute",
-          left: "50%",
-
-          bottom: "8rem",
-          transform: "transform: translate(-50%, -50%);",
-          fontSize: "1.5rem",
-        }}
-      >
-        <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
-          Back
-        </Link>
-      </Button>
     </div>
   );
 }
