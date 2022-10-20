@@ -1,43 +1,56 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 type Props = {
-  title: string,
-  price: number,
-  img: string,
-}
+  title: string;
+  price: number;
+  bed: string;
+  size: string;
+  img: string;
+};
 
-const MediaCard = ({ title, price, img }: Props) => {
+const MediaCard = ({ title, price, bed, size, img }: Props) => {
+  // split เอาแค่ตัวเลข
+  const roomSize = size.split(" ")[0];
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={img}
-        alt="green iguana"
-      />
+    <Card sx={{ maxWidth: 345,boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }}>
+      <CardMedia component="img" height="200" image={img} alt="green iguana" />
       <CardContent>
         <Box
           sx={{
-            display: 'flex',
+            display: "flex",
             justifyContent: "space-between",
+            
           }}
         >
-          <Typography gutterBottom variant="h5" component="div" style={{textTransform: "capitalize"}}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            style={{ textTransform: "capitalize" }}
+          >
             {title}
           </Typography>
-          <Typography gutterBottom variant="h5" component="div" style={{textTransform: "capitalize"}}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            style={{ textTransform: "capitalize" }}
+          >
             ฿{price}
           </Typography>
         </Box>
-        <Typography variant="body2" color="text.secondary" >
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        <Typography variant="body2" color="text">
+          Room Size: {roomSize} <span>m&#178;</span>
+        <Typography variant="body2" color="text.secondary">
+          {bed}
+        </Typography>
         </Typography>
       </CardContent>
       <CardActions>
@@ -45,6 +58,6 @@ const MediaCard = ({ title, price, img }: Props) => {
       </CardActions>
     </Card>
   );
-}
+};
 
 export default MediaCard;
