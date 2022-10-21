@@ -51,7 +51,7 @@ function User() {
               price={item?.Price!}
               bed={item?.Bed!}
               size={item?.RoomSize!}
-              img="https://images.unsplash.com/photo-1455587734955-081b22074882?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+              img={item?.CoverImage + ""}
             />
           ))}
         </Box>
