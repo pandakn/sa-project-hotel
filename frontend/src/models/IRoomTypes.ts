@@ -4,4 +4,5 @@ export interface RoomTypesInterface {
   Price?: number,
   Bed?: string,
   RoomSize?: string
+  CoverImage?: string
 }

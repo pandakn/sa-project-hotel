@@ -2,13 +2,14 @@ package entity
 
 import "golang.org/x/crypto/bcrypt"
 
-func MockUpRoom() {
+func LoadRoom() {
 	passwordA, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
 	// Admin
 	AdminA := Admin{
 		Name:     "Natthawut",
 		Username: "keemknkx",
 		Password: string(passwordA),
+		Avatar:   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyMpnpMCeglR1cE8vNKuktuI0zh4PR3HNnEg&usqp=CAU",
 	}
 	Db.Model(&Admin{}).Create(&AdminA)
 
@@ -17,31 +18,35 @@ func MockUpRoom() {
 		Name:     "admin",
 		Username: "admin",
 		Password: string(passwordB),
+		Avatar:   "https://img.buzzfeed.com/buzzfeed-static/static/2019-01/23/13/asset/buzzfeed-prod-web-06/sub-buzz-1138-1548268729-1.jpg?crop=450:450;233,0",
 	}
 	Db.Model(&Admin{}).Create(&AdminB)
 
 	// RoomType
 	RoomTypeA := RoomType{
-		Name:     "Standard",
-		Price:    690.00,
-		Bed:      "1 single bed",
-		RoomSize: "25 m^2",
+		Name:       "Standard",
+		Price:      690.00,
+		Bed:        "1 single bed",
+		RoomSize:   "25 m^2",
+		CoverImage: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
 	}
 	Db.Model(&RoomType{}).Create(&RoomTypeA)
 
 	RoomTypeB := RoomType{
-		Name:     "Delux",
-		Price:    1290.00,
-		Bed:      "2 single beds",
-		RoomSize: "30 m^2",
+		Name:       "Delux",
+		Price:      1290.00,
+		Bed:        "2 single beds",
+		RoomSize:   "30 m^2",
+		CoverImage: "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
 	}
 	Db.Model(&RoomType{}).Create(&RoomTypeB)
 
 	RoomTypeC := RoomType{
-		Name:     "Suite",
-		Price:    2490.00,
-		Bed:      "1 king bed",
-		RoomSize: "40 m^2",
+		Name:       "Suite",
+		Price:      2490.00,
+		Bed:        "1 king bed",
+		RoomSize:   "40 m^2",
+		CoverImage: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
 	}
 	Db.Model(&RoomType{}).Create(&RoomTypeC)
 
