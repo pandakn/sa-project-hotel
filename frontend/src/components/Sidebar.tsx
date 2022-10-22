@@ -17,7 +17,7 @@ function Sidebar() {
           display: "flex",
           flexDirection: "column",
           bgcolor: "#8BBCCC",
-          position: "absolute",
+          position: "fixed",
           p: 2,
           pt: 10,
           top: 0,
