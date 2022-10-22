@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -14,26 +14,152 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import dayjs, { Dayjs } from "dayjs";
-import Stack from "@mui/material/Stack";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import Button from '@mui/material/Button';
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import Button from "@mui/material/Button";
+import { DepartmentInterface } from "../modelsEmpoyee/IDepartment";
+import { isTemplateExpression } from "typescript";
+import { EmployeeInterface } from "../modelsEmpoyee/IEmployee";
+import { PositionInterface } from "../modelsEmpoyee/IPosition";
+import { AdminInterface } from "../models/IAdmins";
+import { GetAdminByID } from "../services/HttpClientService";
+import AlertTitle from "@mui/material/AlertTitle";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function App() {
-  // =========================(post)====================================================
-  const [age, setAge] = React.useState("");
+  // =========================(Use State)====================================================
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+  const [emp, setEmp] = useState<EmployeeInterface>({});
+  const [dept, setDept] = useState<DepartmentInterface[]>([]);
+  const [post, setPost] = useState<PositionInterface[]>([]);
+  const [admin, setAdmin] = useState<Partial<AdminInterface>>({ Name: "" });
+
+  const [first, setFirst] = useState<String>("");
+  const [last, setLast] = useState<String>("");
+  const [gender, setGender] = useState<String>("");
+  const [age, setAge] = useState<number>(0);
+  const [phone, setPhone] = useState<String>("");
+  const [address, setAddress] = useState<String>("");
+  const [date, setDate] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
+
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+
+  // =========================(handleClose)====================================================
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSuccess(false);
+    setError(false);
   };
 
-  // =========================(Date)====================================================
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
+  // =========================(HandleChange)====================================================
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const name = event.target.name as keyof typeof emp;
+    console.log(event.target.name);
+    console.log(event.target.value);
+    setEmp({
+      ...emp,
+      [name]: event.target.value,
+    });
+    console.log(emp.PositionID);
+    console.log(emp);
+  };
+
+  // =========================(Fetch API)====================================================
+
+  const apiUrl = "http://localhost:8080";
+  const requestOptionsGet = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  };
+
+  const fetchDepartment = async () => {
+    fetch(`${apiUrl}/depts`, requestOptionsGet)
+      .then((response) => response.json())
+      .then((result) => {
+        setDept(result.data);
+      });
+  };
+  const fetchPosition = async () => {
+    fetch(`${apiUrl}/posts`, requestOptionsGet)
+      .then((response) => response.json())
+      .then((result) => {
+        setPost(result.data);
+      });
+  };
+
+  const fetchAdminByID = async () => {
+    let res = await GetAdminByID();
+    emp.AdminID = res.ID;
+    if (res) {
+      setAdmin(res);
+    }
+  };
+
+  useEffect(() => {
+    fetchDepartment();
+    fetchPosition();
+    fetchAdminByID();
+  }, []);
+
+  const convertType = (data: string | number | undefined) => {
+    let val = typeof data === "string" ? parseInt(data) : data;
+    return val;
+  };
+
+  const submit = () => {
+    let data = {
+      Name: `${first} ${last}`,
+      Gender: gender,
+      Age: age,
+      Contact: phone,
+      Address: address,
+      Date: date,
+      AdminID: emp.AdminID,
+      DepartmentID: convertType(emp.DepartmentID),
+      PositionID: convertType(emp.PositionID),
+    };
+    console.log(data);
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+
+    fetch(`${apiUrl}/employees`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          setSuccess(true);
+        } else {
+          setError(true);
+        }
+      });
+  };
 
   return (
     <div>
-      <Container maxWidth="md" sx={{ marginTop: 5 ,ml:50}}>
+      <Container maxWidth="md" sx={{ marginTop: 6 }}>
         <Paper
           elevation={4}
           sx={{
@@ -54,28 +180,37 @@ function App() {
         <form>
           <Paper
             variant="outlined"
-            sx={{ padding: 2, paddingTop: 1, marginBottom: 8 }}
+            sx={{ padding: 2, paddingTop: 1, marginBottom: 2 }}
           >
             <Grid container spacing={2}>
+              {/*============================================(First name)======================================================*/}
               <Grid xs={6} md={6}>
                 <p style={{ color: "grey", fontSize: 17 }}>First name</p>
                 <TextField
-                  id="outlined-required"
+                  id="Name"
+                  type="string"
                   label="ชื่อ"
                   variant="outlined"
                   fullWidth
                   required
+                  onChange={(event) => {
+                    setFirst(event.target.value);
+                  }}
                 />
               </Grid>
-              {/*==================================================================================================*/}
+              {/*=============================================(Last name)=====================================================*/}
               <Grid xs={6} md={6}>
                 <p style={{ color: "grey", fontSize: 17 }}>Last name</p>
                 <TextField
-                  id="outlined-required"
+                  id="Name"
+                  type="string"
                   label="สกุล"
                   variant="outlined"
                   fullWidth
                   required
+                  onChange={(event) => {
+                    setLast(event.target.value);
+                  }}
                 />
               </Grid>
               {/*========================================(Gender)=========================================================*/}
@@ -96,6 +231,9 @@ function App() {
                   row
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   name="row-radio-buttons-group"
+                  onChange={(event) => {
+                    setGender(event.target.value);
+                  }}
                 >
                   <FormControlLabel
                     value="female"
@@ -107,11 +245,11 @@ function App() {
                     control={<Radio />}
                     label="Male"
                   />
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     value="other"
                     control={<Radio />}
                     label="Other"
-                  />
+                  /> */}
                 </RadioGroup>
               </Grid>
               {/*===============================================(Age)===================================================*/}
@@ -127,14 +265,18 @@ function App() {
                   id="outlined-number"
                   type="number"
                   fullWidth
-                  onChange={(event) =>
-                    Number(event.target.value) <= 0
-                      ? (event.target.value = "1")
-                      : event.target.value
-                  }
-                  InputLabelProps={{
-                    shrink: true,
+                  required
+                  onChange={(event) => {
+                    if (Number(event.target.value) < 0) {
+                      return (event.target.value = "0");
+                    } else {
+                      setAge(Number(event.target.value));
+                      return event.target.value;
+                    }
                   }}
+                  // InputLabelProps={{
+                  //   shrink: true,
+                  // }}
                 />
               </Grid>
             </Grid>
@@ -152,6 +294,10 @@ function App() {
                   id="outlined-basic"
                   label="โทรศัพท์"
                   variant="outlined"
+                  required
+                  onChange={(event) => {
+                    setPhone(event.target.value);
+                  }}
                 />
               </Grid>
               {/*==============================================(Addresss)====================================================*/}
@@ -168,6 +314,10 @@ function App() {
                   label="ที่อยู่"
                   variant="outlined"
                   fullWidth
+                  required
+                  onChange={(event) => {
+                    setAddress(event.target.value);
+                  }}
                 />
               </Grid>
               {/*=======================================(select Position)===========================================================*/}
@@ -183,18 +333,23 @@ function App() {
                   Position:
                 </FormLabel>
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={age}
+                  required
+                  id="post"
+                  value={emp.PositionID + ""}
                   onChange={handleChange}
                   fullWidth
+                  inputProps={{
+                    name: "PositionID",
+                  }}
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {post.map((item) => (
+                    <MenuItem key={item.ID} value={item.ID}>
+                      {item.Name}
+                    </MenuItem>
+                  ))}
                 </Select>
                 <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
                   choose an employee position
@@ -213,18 +368,23 @@ function App() {
                   Department:
                 </FormLabel>
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={age}
+                  // labelId="demo-simple-select-helper-label"
+                  id="DeptID"
+                  value={emp.DepartmentID + ""}
                   onChange={handleChange}
+                  inputProps={{
+                    name: "DepartmentID",
+                  }}
                   fullWidth
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {dept.map((item) => (
+                    <MenuItem key={item.ID} value={item.ID}>
+                      {item.DeptName}
+                    </MenuItem>
+                  ))}
                 </Select>
                 <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
                   choose an employee position
@@ -244,16 +404,25 @@ function App() {
                   Date:
                 </FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
+                  {/* <DatePicker
                     disableFuture
                     label="เลือกวันที่"
                     openTo="year"
                     views={["year", "month", "day"]}
-                    value={value}
+                    value={date}
                     onChange={(newValue) => {
-                      setValue(newValue);
+                      setDate(newValue);
                     }}
                     renderInput={(params) => <TextField {...params} />}
+                  /> */}
+
+                  <DateTimePicker
+                    label="เลือกวันและเวลา"
+                    renderInput={(params) => <TextField {...params} />}
+                    value={date}
+                    onChange={(newValue) => {
+                      setDate(newValue);
+                    }}
                   />
                 </LocalizationProvider>
               </Grid>
@@ -263,12 +432,35 @@ function App() {
                 md={12}
                 sx={{ justifyContent: "center", margin: 1 }}
               >
-                 <Button variant="contained" size ="large">INSERT</Button>
+                <Button variant="contained" size="large" onClick={submit}>
+                  INSERT
+                </Button>
               </Grid>
             </Grid>
           </Paper>
         </form>
       </Container>
+      <Snackbar
+        open={success}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          บันทึกข้อมูลสำเร็จ
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={error}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="error">
+          บันทึกข้อมูลไม่สำเร็จ
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
