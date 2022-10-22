@@ -6,7 +6,7 @@ import Admin from "./routes/Admin";
 import User from "./routes/User";
 import Login from "./components/SignIn";
 import CreateRoom from "./components/CreateRoom";
-import CreateEmployee from "./components/CreateEmployee"
+import CreateEmployee from "./components/CreateEmployee";
 
 function App() {
   return (
