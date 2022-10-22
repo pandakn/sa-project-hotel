@@ -28,9 +28,15 @@ func SetupDatabase() {
 		&Position{},
 		&Salary{},
 		&Employee{},
+		&Register{},
+		&Gender{},
+		&Status{},
+		&Province{},
+
 	)
 
 	Db = database
 
 	LoadRoom()
+	MockupRegis()
 }
