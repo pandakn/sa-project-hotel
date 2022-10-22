@@ -104,6 +104,7 @@ function CreateRoom() {
           display: "flex",
           justifyContent: "center",
           width: "100%",
+          ml: 10
         }}
       >
         <Box
@@ -184,7 +185,7 @@ function CreateRoom() {
                 fullWidth
                 id="roomZone"
                 // label="โซนห้องพัก"
-                value={room.RoomZoneID + ""}
+                value={room.RoomZone + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoomZoneID",

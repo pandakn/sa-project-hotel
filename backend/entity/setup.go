@@ -24,6 +24,10 @@ func SetupDatabase() {
 		&Admin{},
 		&RoomType{},
 		&RoomZone{},
+		&Department{},
+		&Position{},
+		&Salary{},
+		&Employee{},
 	)
 
 	Db = database
