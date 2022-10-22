@@ -113,7 +113,7 @@ function Navbar() {
               >
                 <Avatar
                   alt=""
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyMpnpMCeglR1cE8vNKuktuI0zh4PR3HNnEg&usqp=CAU"
+                  src={admin.Avatar}
                   sx={{ width: 56, height: 56 }}
                 />
               </Button>

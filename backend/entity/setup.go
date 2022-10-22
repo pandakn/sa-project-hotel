@@ -28,5 +28,5 @@ func SetupDatabase() {
 
 	Db = database
 
-	MockUpRoom()
+	LoadRoom()
 }

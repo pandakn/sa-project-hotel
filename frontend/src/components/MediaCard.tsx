@@ -46,11 +46,11 @@ const MediaCard = ({ title, price, bed, size, img }: Props) => {
             ฿{price}
           </Typography>
         </Box>
-        <Typography variant="body2" color="text">
+        <Typography variant="body2" color="text" style={{marginBottom: "0.5rem"}}>
           Room Size: {roomSize} <span>m&#178;</span>
+        </Typography>
         <Typography variant="body2" color="text.secondary">
           {bed}
-        </Typography>
         </Typography>
       </CardContent>
       <CardActions>
