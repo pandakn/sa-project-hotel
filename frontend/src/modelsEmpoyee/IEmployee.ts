@@ -1,4 +1,4 @@
-import { AdminInterface } from "./IAdmins"
+import { AdminInterface } from "../models/IAdmins"
 import { DepartmentInterface } from "./IDepartment"
 import { PositionInterface } from "./IPosition"
 import dayjs, { Dayjs } from "dayjs";

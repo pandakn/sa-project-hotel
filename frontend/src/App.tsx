@@ -8,6 +8,7 @@ import Login from "./components/SignIn";
 import CreateRoom from "./components/CreateRoom";
 import CreateEmployee from "./components/CreateEmployee";
 
+
 function App() {
   return (
     <Routes>
@@ -15,7 +16,7 @@ function App() {
       <Route path="/user" element={<User />} />
       <Route path="/admin" element={<Admin />}>
         <Route path="create-room" element={<CreateRoom />} />
-        {/* <Route path="employee" element={<Employee />} /> */}
+        <Route path="employee" element={<CreateEmployee />} />
       </Route>
       <Route path="/login" element={<Login />} />
     </Routes>
