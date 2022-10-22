@@ -7,7 +7,6 @@ import User from "./routes/User";
 import Login from "./components/SignIn";
 import CreateRoom from "./components/CreateRoom";
 
-
 function App() {
   return (
     <Routes>
