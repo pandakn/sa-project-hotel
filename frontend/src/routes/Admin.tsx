@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import Login from "../components/Login";
+import Login from "../components/SignIn";
 
-import CreateRoom from "../components/CreateRoom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import Box from "@mui/material/Box";
 
 function Admin() {
   const [token, setToken] = useState<String>("");

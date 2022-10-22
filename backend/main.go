@@ -47,7 +47,6 @@ func main() {
 			// Admin Routes
 			r.GET("/admin/:id", controller.GetAdmin)
 			r.GET("/admins", controller.ListAdmins)
-
 		}
 	}
 

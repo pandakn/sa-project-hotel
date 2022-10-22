@@ -10,17 +10,18 @@ type Admin struct {
 	Name     string
 	Username string `gorm:"uniqueIndex"`
 	Password string
-	Rooms    []Room     `gorm:"foreignKey:AdminID"`
-	Employee []Employee `gorm:"foreignKey:AdminID"`
+	Avatar   string
+	Rooms    []Room `gorm:"foreignKey:AdminID"`
 }
 
 type RoomType struct {
 	gorm.Model
-	Name     string
-	Price    float32
-	Bed      string
-	RoomSize string
-	Rooms    []Room `gorm:"foreignKey:RoomTypeID"`
+	Name       string
+	Price      float32
+	Bed        string
+	RoomSize   string
+	CoverImage string
+	Rooms      []Room `gorm:"foreignKey:RoomTypeID"`
 }
 
 type RoomZone struct {

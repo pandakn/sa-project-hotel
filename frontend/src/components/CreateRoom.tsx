@@ -3,7 +3,7 @@ import { RoomsInterface } from "../models/IRoom";
 import { RoomTypesInterface } from "../models/IRoomTypes";
 import { RoomZonesInterface } from "../models/IRoomZones";
 import { AdminInterface } from "../models/IAdmins";
-import { GetAdminByID } from "../services/HttpClientService";
+import { GetAdminByID, GetRoomTypes, GetRoomZones, CreateRooms } from "../services/HttpClientService";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -40,6 +40,7 @@ function CreateRoom() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
+    console.log(event.target.value)
     const name = event.target.name as keyof typeof room;
     setRoom({
       ...room,
@@ -48,25 +49,19 @@ function CreateRoom() {
   };
 
   const apiUrl = "http://localhost:8080";
-  const requestOptionsGet = {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  };
 
   const fetchRoomTypes = async () => {
-    fetch(`${apiUrl}/room-types`)
-      .then((response) => response.json())
-      .then((result) => {
-        setRoomType(result.data);
-      });
+    const response = await GetRoomTypes();
+    if (response) {
+      setRoomType(response);
+    }
   };
-
+  
   const fetchRoomZones = async () => {
-    fetch(`${apiUrl}/room-zones`, requestOptionsGet)
-      .then((response) => response.json())
-      .then((result) => {
-        setRoomZone(result.data);
-      });
+    const response = await GetRoomZones();
+    if (response) {
+      setRoomZone(response);
+    }
   };
 
   const fetchAdminByID = async () => {
@@ -83,35 +78,23 @@ function CreateRoom() {
     fetchAdminByID();
   }, []);
 
+  console.log(room);
+
   const convertType = (data: string | number | undefined) => {
     let val = typeof data === "string" ? parseInt(data) : data;
     return val;
   };
 
-  const submit = () => {
+  const submit = async () => {
     let data = {
       RoomZoneID: convertType(room.RoomZoneID),
       RoomTypeID: convertType(room.RoomTypeID),
-      AdminID: room.AdminID,
+      AdminID: convertType(room.AdminID),
       RoomNumber: room.RoomNumber,
     };
 
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-
-    fetch(`${apiUrl}/rooms`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        console.log(res);
-        if (res.data) {
-          setSuccess(true);
-        } else {
-          setError(true);
-        }
-      });
+    let res = await CreateRooms(data);
+    res ? setSuccess(true) : setError(true);
   };
 
   return (
@@ -181,6 +164,7 @@ function CreateRoom() {
                 label="เลขห้อง"
                 value={room.RoomNumber}
                 onChange={(e) => {
+                  console.log(e.target.value);
                   setRoom({
                     ...room,
                     RoomNumber: e.target.value,
@@ -210,7 +194,7 @@ function CreateRoom() {
                 <option aria-label="None" value="">
                   โซนห้องพัก
                 </option>
-                {roomZone.map((item) => (
+                {roomZone.map((item, idx) => (
                   <option key={item.ID} value={item.ID}>
                     {item.Zone}
                   </option>

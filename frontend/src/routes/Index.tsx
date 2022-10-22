@@ -1,13 +1,13 @@
 import React from "react";
 import Home from "../components/Home";
-import Login from "../components/Login";
+import MediaCard from "../components/MediaCard";
 
 const Index = () => {
   return (
     <div>
-      <Index />
+      <Home />
     </div>
   )
 };
 
-export default Home;
+export default Index;
