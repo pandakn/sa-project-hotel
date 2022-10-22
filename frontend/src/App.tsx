@@ -6,7 +6,7 @@ import Admin from "./routes/Admin";
 import User from "./routes/User";
 import Login from "./components/SignIn";
 import CreateRoom from "./components/CreateRoom";
-
+import CreateEmployee from "./components/CreateEmployee"
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
       <Route path="/user" element={<User />} />
       <Route path="/admin" element={<Admin />}>
         <Route path="create-room" element={<CreateRoom />} />
+        <Route path="create-employee" element={<CreateEmployee />} />
       </Route>
       <Route path="/login" element={<Login />} />
     </Routes>
