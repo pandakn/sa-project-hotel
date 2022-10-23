@@ -47,7 +47,6 @@ function Home() {
             startIcon={<AccountCircleIcon sx={{color: "#333"}} />}
             style={{
               borderRadius: 20,
-              
               backgroundColor: "#fff",
               padding: "18px 36px",
               fontSize: "18px",
@@ -69,7 +68,7 @@ function Home() {
             startIcon={<AdminPanelSettingsIcon  />}
             style={{
               borderRadius: 20,
-              backgroundColor: "transparent",
+              backgroundColor: "#393a3c",
               padding: "18px 36px",
               fontSize: "18px",
             }}
