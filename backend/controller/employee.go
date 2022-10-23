@@ -51,7 +51,7 @@ func CreateEmployee(c *gin.Context) {
 		Age:     employee.Age,
 		Contact: employee.Contact,
 		Address: employee.Address,
-		Date:    employee.Date,
+		Date_IN: employee.Date_IN,
 
 		Department: department,
 		Position:   position,
