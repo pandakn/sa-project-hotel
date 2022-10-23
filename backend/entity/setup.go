@@ -37,4 +37,5 @@ func SetupDatabase() {
 
 	LoadRoom()
 	MockupEmp()
+	MockUpBooking()
 }
