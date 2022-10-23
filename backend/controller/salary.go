@@ -13,7 +13,7 @@ func GetSalary(c *gin.Context) {
 	var salary entity.Salary
 	id := c.Param("id")
 
-	if err := entity.DB().Raw("SELECT * FROM salaries WHERE id = ?", id).Scan(&salary).Error; err != nil {
+	if err := entity.DB().Preload("Department").Preload("Position").Raw("SELECT * FROM salaries WHERE id = ?", id).First(&salary).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

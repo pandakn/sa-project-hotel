@@ -45,11 +45,6 @@ func CreateEmployee(c *gin.Context) {
 		return
 	}
 
-	// if err := entity.DB().Create(&room.RoomNumber).Error; err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
 	rm := entity.Employee{
 		Name:    employee.Name,
 		Gender:  employee.Gender,
@@ -76,7 +71,7 @@ func GetEmployee(c *gin.Context) {
 	var emp entity.Employee
 	id := c.Param("id")
 
-	if err := entity.DB().Raw("SELECT * FROM employees WHERE id = ?", id).Scan(&emp).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM employees WHERE id = ?", id).First(&emp).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

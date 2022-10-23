@@ -11,7 +11,8 @@ type Admin struct {
 	Username string `gorm:"uniqueIndex"`
 	Password string
 	Avatar   string
-	Rooms    []Room `gorm:"foreignKey:AdminID"`
+	Rooms    []Room     `gorm:"foreignKey:AdminID"`
+	Employee []Employee `gorm:"foreignKey:AdminID"`
 }
 
 type RoomType struct {

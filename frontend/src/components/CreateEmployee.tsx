@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
@@ -20,12 +19,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import Button from "@mui/material/Button";
 import { DepartmentInterface } from "../modelsEmpoyee/IDepartment";
-import { isTemplateExpression } from "typescript";
 import { EmployeeInterface } from "../modelsEmpoyee/IEmployee";
 import { PositionInterface } from "../modelsEmpoyee/IPosition";
 import { AdminInterface } from "../models/IAdmins";
 import { GetAdminByID } from "../services/HttpClientService";
-import AlertTitle from "@mui/material/AlertTitle";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
@@ -298,6 +295,7 @@ function App() {
                   onChange={(event) => {
                     setPhone(event.target.value);
                   }}
+                  inputProps={{ maxLength: 10 }}
                 />
               </Grid>
               {/*==============================================(Addresss)====================================================*/}
@@ -404,18 +402,6 @@ function App() {
                   Date:
                 </FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  {/* <DatePicker
-                    disableFuture
-                    label="เลือกวันที่"
-                    openTo="year"
-                    views={["year", "month", "day"]}
-                    value={date}
-                    onChange={(newValue) => {
-                      setDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  /> */}
-
                   <DateTimePicker
                     label="เลือกวันและเวลา"
                     renderInput={(params) => <TextField {...params} />}

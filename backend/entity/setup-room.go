@@ -2,10 +2,13 @@ package entity
 
 import "golang.org/x/crypto/bcrypt"
 
+var AdminA Admin
+var AdminB Admin
+
 func LoadRoom() {
 	passwordA, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
 	// Admin
-	AdminA := Admin{
+	AdminA = Admin{
 		Name:     "Natthawut",
 		Username: "keemknkx",
 		Password: string(passwordA),
@@ -14,7 +17,7 @@ func LoadRoom() {
 	Db.Model(&Admin{}).Create(&AdminA)
 
 	passwordB, _ := bcrypt.GenerateFromPassword([]byte("admin"), 14)
-	AdminB := Admin{
+	AdminB = Admin{
 		Name:     "admin",
 		Username: "admin",
 		Password: string(passwordB),
