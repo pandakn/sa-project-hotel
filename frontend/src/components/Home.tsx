@@ -42,48 +42,47 @@ function Home() {
             gap: 5,
           }}
         >
-          <Button
-            variant="contained"
-            startIcon={<AccountCircleIcon sx={{color: "#333"}} />}
+          <Link
+            to="user"
             style={{
-              borderRadius: 20,
-              backgroundColor: "#fff",
-              padding: "18px 36px",
-              fontSize: "18px",
+              textDecoration: "none",
             }}
           >
-            <Link
-              to="user"
+            <Button
+              variant="contained"
+              startIcon={<AccountCircleIcon sx={{ color: "#333" }} />}
               style={{
                 color: "#333",
-                textDecoration: "none",
-                fontSize: "1.2rem",
+                borderRadius: 20,
+                backgroundColor: "#fff",
+                padding: "18px 36px",
+                fontSize: "18px",
               }}
             >
               User
-            </Link>
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<AdminPanelSettingsIcon  />}
+            </Button>
+          </Link>
+
+          <Link
+            to="admin"
             style={{
-              borderRadius: 20,
-              backgroundColor: "#393a3c",
-              padding: "18px 36px",
-              fontSize: "18px",
+              textDecoration: "none",
             }}
           >
-            <Link
-              to="admin"
+            <Button
+              variant="contained"
+              startIcon={<AdminPanelSettingsIcon />}
               style={{
                 color: "#fff",
-                textDecoration: "none",
-                fontSize: "1.2rem",
+                borderRadius: 20,
+                backgroundColor: "#393a3c",
+                padding: "18px 36px",
+                fontSize: "18px",
               }}
             >
               Admin
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </Box>
       </Box>
     </div>

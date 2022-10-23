@@ -42,7 +42,6 @@ function User() {
           sx={{
             display: "flex",
             gap: 5,
-            // height: "100vh",
           }}
         >
           {roomTypes.map((item) => (
@@ -56,23 +55,23 @@ function User() {
             />
           ))}
         </Box>
-        <Button
-          variant="contained"
-          startIcon={<KeyboardBackspaceIcon />}
-          style={{
-            textTransform: "capitalize",
-            marginTop: "2rem",
-            fontSize: "1rem",
-            borderRadius: 36,
-            backgroundColor: "#3e8af7",
-            padding: "18px 36px",
-            // fontSize: "18px",
-          }}
-        >
-          <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
+        <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
+          <Button
+            variant="contained"
+            startIcon={<KeyboardBackspaceIcon />}
+            style={{
+              textTransform: "capitalize",
+              marginTop: "2rem",
+              fontSize: "1rem",
+              borderRadius: 20,
+              backgroundColor: "#3e8af7",
+              padding: "18px 36px",
+              // fontSize: "18px",
+            }}
+          >
             Back
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </Box>
     </div>
   );

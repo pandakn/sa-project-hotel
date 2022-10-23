@@ -44,4 +44,6 @@ type Room struct {
 	// AdminID เป็น FK
 	AdminID *uint
 	Admin   Admin
+
+	Bookings []Booking `gorm:"foreignKey:RoomID"`
 }
