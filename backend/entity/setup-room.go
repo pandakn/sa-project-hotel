@@ -82,6 +82,7 @@ func LoadRoom() {
 		RoomZone:   RoomZoneA,
 		RoomType:   RoomTypeC,
 		Admin:      AdminA,
+		Status:     false,
 	}
 	Db.Model(&Room{}).Create(&RoomA)
 
@@ -90,6 +91,7 @@ func LoadRoom() {
 		RoomZone:   RoomZoneB,
 		RoomType:   RoomTypeA,
 		Admin:      AdminB,
+		Status:     false,
 	}
 	Db.Model(&Room{}).Create(&RoomB)
 
@@ -98,6 +100,7 @@ func LoadRoom() {
 		RoomZone:   RoomZoneC,
 		RoomType:   RoomTypeB,
 		Admin:      AdminA,
+		Status:     true,
 	}
 	Db.Model(&Room{}).Create(&RoomC)
 
@@ -106,6 +109,7 @@ func LoadRoom() {
 		RoomZone:   RoomZoneA,
 		RoomType:   RoomTypeB,
 		Admin:      AdminB,
+		Status:     true,
 	}
 	Db.Model(&Room{}).Create(&RoomD)
 }
