@@ -24,7 +24,7 @@ function Home() {
           overflow: "hidden",
           backgroundSize: "cover",
           color: "#f5f5f5",
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${homeBg})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url(${homeBg})`,
           backgroundPosition: "center",
           WebkitBackgroundSize: "cover",
         }}
