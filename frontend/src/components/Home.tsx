@@ -4,7 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-import "./Home.css"
+import "./Home.css";
 
 // import image
 import homeBg from "../assets/images/home.jpg";
@@ -20,16 +20,19 @@ function Home() {
           alignItems: "center",
           gap: 6,
           height: "100vh",
+          width: "100vw",
           overflow: "hidden",
           backgroundSize: "cover",
           color: "#f5f5f5",
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${homeBg})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url(${homeBg})`,
+          backgroundPosition: "center",
+          WebkitBackgroundSize: "cover",
         }}
       >
         <Typography
           className="animation"
           variant="h1"
-          style={{textTransform: "uppercase", textShadow: "4px 4px 12px #4649FF"}}
+          style={{ textTransform: "uppercase" }}
         >
           Welcome to Hotel
         </Typography>
@@ -39,11 +42,20 @@ function Home() {
             gap: 5,
           }}
         >
-          <Button variant="contained" startIcon={<AccountCircleIcon />}>
+          <Button
+            variant="contained"
+            startIcon={<AccountCircleIcon sx={{color: "#333"}} />}
+            style={{
+              borderRadius: 20,
+              backgroundColor: "#fff",
+              padding: "18px 36px",
+              fontSize: "18px",
+            }}
+          >
             <Link
               to="user"
               style={{
-                color: "#fff",
+                color: "#333",
                 textDecoration: "none",
                 fontSize: "1.2rem",
               }}
@@ -51,7 +63,16 @@ function Home() {
               User
             </Link>
           </Button>
-          <Button variant="contained" startIcon={<AdminPanelSettingsIcon />}>
+          <Button
+            variant="contained"
+            startIcon={<AdminPanelSettingsIcon  />}
+            style={{
+              borderRadius: 20,
+              backgroundColor: "#393a3c",
+              padding: "18px 36px",
+              fontSize: "18px",
+            }}
+          >
             <Link
               to="admin"
               style={{

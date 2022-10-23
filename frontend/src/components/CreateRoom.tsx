@@ -184,7 +184,7 @@ function CreateRoom() {
                 fullWidth
                 id="roomZone"
                 // label="โซนห้องพัก"
-                value={room.RoomZone + ""}
+                value={room.RoomZoneID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoomZoneID",
