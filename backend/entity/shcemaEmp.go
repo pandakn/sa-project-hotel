@@ -40,7 +40,7 @@ type Employee struct {
 	Age     uint
 	Contact string
 	Address string
-	Date    time.Time
+	Date_IN time.Time
 
 	AdminID *uint
 	Admin   Admin

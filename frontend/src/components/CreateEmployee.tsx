@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import dayjs, { Dayjs } from "dayjs";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -47,7 +48,7 @@ function App() {
   const [age, setAge] = useState<number>(0);
   const [phone, setPhone] = useState<String>("");
   const [address, setAddress] = useState<String>("");
-  const [date, setDate] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
+  const [date, setDate] = React.useState<Date | null>(new Date());
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -129,7 +130,7 @@ function App() {
       Age: age,
       Contact: phone,
       Address: address,
-      Date: date,
+      Date_IN: date,
       AdminID: emp.AdminID,
       DepartmentID: convertType(emp.DepartmentID),
       PositionID: convertType(emp.PositionID),
@@ -233,20 +234,15 @@ function App() {
                   }}
                 >
                   <FormControlLabel
-                    value="female"
+                    value="Female"
                     control={<Radio />}
                     label="Female"
                   />
                   <FormControlLabel
-                    value="male"
+                    value="Male"
                     control={<Radio />}
                     label="Male"
                   />
-                  {/* <FormControlLabel
-                    value="other"
-                    control={<Radio />}
-                    label="Other"
-                  /> */}
                 </RadioGroup>
               </Grid>
               {/*===============================================(Age)===================================================*/}
@@ -401,7 +397,7 @@ function App() {
                 >
                   Date:
                 </FormLabel>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DateTimePicker
                     label="เลือกวันและเวลา"
                     renderInput={(params) => <TextField {...params} />}
