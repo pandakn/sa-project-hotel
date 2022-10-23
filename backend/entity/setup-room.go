@@ -2,6 +2,10 @@ package entity
 
 import "golang.org/x/crypto/bcrypt"
 
+var RoomA Room
+var RoomB Room
+var RoomC Room
+
 func LoadRoom() {
 	passwordA, _ := bcrypt.GenerateFromPassword([]byte("123456"), 14)
 	// Admin
@@ -70,28 +74,36 @@ func LoadRoom() {
 	Db.Model(&RoomZone{}).Create(&RoomZoneC)
 
 	// Room (main entity)
-	Db.Model(&Room{}).Create(&Room{
+
+	RoomA = Room{
 		RoomNumber: "102",
 		RoomZone:   RoomZoneA,
 		RoomType:   RoomTypeC,
 		Admin:      AdminA,
-	})
-	Db.Model(&Room{}).Create(&Room{
+	}
+	Db.Model(&Room{}).Create(&RoomA)
+
+	RoomB = Room{
 		RoomNumber: "301",
 		RoomZone:   RoomZoneB,
 		RoomType:   RoomTypeA,
 		Admin:      AdminB,
-	})
-	Db.Model(&Room{}).Create(&Room{
+	}
+	Db.Model(&Room{}).Create(&RoomB)
+
+	RoomC = Room{
 		RoomNumber: "205",
 		RoomZone:   RoomZoneC,
 		RoomType:   RoomTypeB,
 		Admin:      AdminA,
-	})
-	Db.Model(&Room{}).Create(&Room{
+	}
+	Db.Model(&Room{}).Create(&RoomC)
+
+	RoomD := Room{
 		RoomNumber: "304",
 		RoomZone:   RoomZoneA,
 		RoomType:   RoomTypeB,
 		Admin:      AdminB,
-	})
+	}
+	Db.Model(&Room{}).Create(&RoomD)
 }

@@ -28,6 +28,9 @@ func SetupDatabase() {
 		&Position{},
 		&Salary{},
 		&Employee{},
+		&Booking{},
+		&Payment{},
+		&Register{},
 	)
 
 	Db = database
