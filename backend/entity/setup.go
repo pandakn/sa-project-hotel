@@ -33,4 +33,5 @@ func SetupDatabase() {
 	Db = database
 
 	LoadRoom()
+	MockupEmp()
 }
