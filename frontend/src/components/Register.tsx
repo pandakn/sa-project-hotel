@@ -14,13 +14,15 @@ import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import {RegisterInterface} from "../modelsRegister/IRegister"
+import { RegisterInterface } from "../modelsRegister/IRegister"
 import { GenderInterface } from "../modelsRegister/IGender";
 import { StatusInterface } from "../modelsRegister/IStatus";
 import { ProvinceInterface } from "../modelsRegister/IProvince";
+import { Link as RouterLink } from "react-router-dom";
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Link } from "react-router-dom";
 
 
 
@@ -34,7 +36,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 function App() {
   // =========================(Use State)====================================================
-  
+
   const [rg, setRg] = useState<RegisterInterface>({});
   const [gen, setGen] = useState<GenderInterface[]>([]);
   const [sta, setSta] = useState<StatusInterface[]>([]);
@@ -52,7 +54,7 @@ function App() {
     showPassword: false,
   });
 
- 
+
 
   // ==============================(handle password)=====================================
 
@@ -152,7 +154,7 @@ function App() {
     let data = {
       FirstName: first,
       LastName: last,
-      Password:  pass.password,
+      Password: pass.password,
       Email: email,
       Gender_ID: convertType(rg.Gender_ID),
       Status_ID: convertType(rg.Status_ID),
@@ -176,6 +178,9 @@ function App() {
           setError(true);
         }
       });
+
+
+
   };
 
   return (
@@ -304,9 +309,7 @@ function App() {
                     name: "Gender_ID",
                   }}
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
+
                   {gen.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
                       {item.Gender}
@@ -339,9 +342,6 @@ function App() {
                   }}
                   fullWidth
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
                   {sta.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
                       {item.Status}
@@ -374,9 +374,7 @@ function App() {
                   }}
                   fullWidth
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
+
                   {prv.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
                       {item.Province}
@@ -394,9 +392,15 @@ function App() {
                 md={12}
                 sx={{ justifyContent: "center", margin: 1 }}
               >
-                <Button variant="contained" size="large" onClick={submit}>
+                
+
+           
+                 <Button variant="contained" size="large" onClick={submit} 
+                 component ={RouterLink}
+                 to = "/booking">
                   สมัครสมาชิก
                 </Button>
+                
               </Grid>
             </Grid>
           </Paper>

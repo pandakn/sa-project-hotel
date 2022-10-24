@@ -19,7 +19,7 @@ func GetStatus(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": status})
 }
 
-// GET /room-types
+// GET /room-typesF
 func ListStatus(c *gin.Context) {
 	var status []entity.Status
 
