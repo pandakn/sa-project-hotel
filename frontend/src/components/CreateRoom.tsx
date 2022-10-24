@@ -44,15 +44,12 @@ function CreateRoom() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value);
     const name = event.target.name as keyof typeof room;
     setRoom({
       ...room,
       [name]: event.target.value,
     });
   };
-
-  const apiUrl = "http://localhost:8080";
 
   const fetchRoomTypes = async () => {
     const response = await GetRoomTypes();

@@ -43,7 +43,7 @@ const MediaCard = ({ title, price, bed, size, img }: Props) => {
             component="div"
             style={{ textTransform: "capitalize" }}
           >
-            ฿{price}
+            ฿{price}/night
           </Typography>
         </Box>
         <Typography variant="body2" color="text" style={{marginBottom: "0.5rem"}}>

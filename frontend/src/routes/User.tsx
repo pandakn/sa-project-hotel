@@ -34,8 +34,6 @@ function User() {
           alignItems: "center",
           height: "100vh",
           overflow: "hidden",
-          // bgcolor: "#f5f5f5"
-          // filter: "blur(8px)"
         }}
       >
         <Box
