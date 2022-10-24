@@ -82,6 +82,7 @@ func main() {
 
 	// login User Route
 	r.POST("/login", controller.Login)
+	r.POST("/user-login", controller.UserLogin)
 
 	// Run the server
 	r.Run()
