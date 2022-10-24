@@ -12,7 +12,7 @@ func GetGender(c *gin.Context) {
 	var gender entity.Gender
 	id := c.Param("id")
 
-	if err := entity.DB().Raw("SELECT * FROM gender WHERE id = ?", id).Scan(&gender).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM genders WHERE id = ?", id).Scan(&gender).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -23,7 +23,7 @@ func GetGender(c *gin.Context) {
 func ListGender(c *gin.Context) {
 	var gender []entity.Gender
 
-	if err := entity.DB().Raw("SELECT * FROM Gender").Scan(&gender).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM genders").Scan(&gender).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

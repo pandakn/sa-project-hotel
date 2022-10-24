@@ -12,20 +12,20 @@ func GetProvince(c *gin.Context) {
 	var province entity.Province
 	id := c.Param("id")
 
-	if err := entity.DB().Raw("SELECT * FROM province WHERE id = ?", id).Scan(&province).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM provinces WHERE id = ?", id).Scan(&province).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": province})
 }
 
-// GET /room-types
+// GET /province
 func ListProvince(c *gin.Context) {
-	var province []entity.Province
+	var provinces []entity.Province
 
-	if err := entity.DB().Raw("SELECT * FROM province").Scan(&province).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM provinces").First(&provinces).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": province})
+	c.JSON(http.StatusOK, gin.H{"data": provinces})
 }

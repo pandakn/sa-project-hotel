@@ -9,10 +9,10 @@ import (
 
 // GET /user/:id
 func GetStatus(c *gin.Context) {
-	var status entity.RoomType
+	var status entity.Status
 	id := c.Param("id")
 
-	if err := entity.DB().Raw("SELECT * FROM status WHERE id = ?", id).Scan(&status).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM statuses WHERE id = ?", id).Scan(&status).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -21,9 +21,9 @@ func GetStatus(c *gin.Context) {
 
 // GET /room-types
 func ListStatus(c *gin.Context) {
-	var status []entity.RoomType
+	var status []entity.Status
 
-	if err := entity.DB().Raw("SELECT * FROM Status").Scan(&status).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM Statuses").Scan(&status).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
