@@ -9,6 +9,9 @@ import CreateRoom from "./components/CreateRoom";
 import CreateEmployee from "./components/CreateEmployee";
 import Booking from "./components/Booking";
 import PaymentConfirmation from "./components/PaymentConfirmation";
+import CheckInIndex from "./components/CheckInIndex";
+import CheckOut from "./components/CheckOut";
+
 
 function App() {
   return (
@@ -20,6 +23,10 @@ function App() {
       <Route path="/admin" element={<Admin />}>
         <Route path="create-room" element={<CreateRoom />} />
         <Route path="create-employee" element={<CreateEmployee />} />
+        <Route path="check-in" element={<CheckInIndex />} />
+        <Route path="check-out" element={<CheckOut />} />
+  
+
       </Route>
     </Routes>
   );

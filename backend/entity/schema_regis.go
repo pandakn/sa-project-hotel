@@ -7,7 +7,6 @@ import (
 )
 
 
-
 type Gender struct {
 	gorm.Model
 	Gender 		string
