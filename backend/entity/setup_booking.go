@@ -49,7 +49,7 @@ func MockUpBooking() {
 		ToDate:         ToDateA,
 		NumberOfGuests: 2,
 		Status:         "confirm",
-	})
+	}
 
 	Db.Model(&Booking{}).Create(&Booking{
 		Room:           RoomB,
@@ -59,7 +59,7 @@ func MockUpBooking() {
 		ToDate:         ToDateB,
 		NumberOfGuests: 3,
 		Status:         "confirm",
-	})
+	}
 
 	Db.Model(&Booking{}).Create(&Booking{
 		Room:           RoomC,
@@ -69,5 +69,5 @@ func MockUpBooking() {
 		ToDate:         ToDateC,
 		NumberOfGuests: 1,
 		Status:         "unconfirm",
-	})
+	}
 }

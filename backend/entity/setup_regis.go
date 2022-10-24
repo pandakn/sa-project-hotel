@@ -75,7 +75,7 @@ func MockupRegis() {
 			LastName: "Namwong",
 			Password: "22222222",
 			Email: "Lali_00@gmail.com",
-		})
+		}
 		Db.Model(&Register{}).Create(&RegisterB)
 	
 		RegisterC = Register{
@@ -86,7 +86,7 @@ func MockupRegis() {
 			LastName: "Supap",
 			Password: "333333333",
 			Email: "Panita_11@gmail.com",
-		})
+		}
 		Db.Model(&Register{}).Create(&RegisterC)
 	
 	
