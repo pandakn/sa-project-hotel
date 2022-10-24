@@ -2,30 +2,27 @@ import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
-import Radio from "@mui/material/Radio";
 import Container from "@mui/material/Container";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import { Box } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import dayjs, { Dayjs } from "dayjs";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import Button from "@mui/material/Button";
-import { DepartmentInterface } from "../modelsEmpoyee/IDepartment";
-import { EmployeeInterface } from "../modelsEmpoyee/IEmployee";
-import { PositionInterface } from "../modelsEmpoyee/IPosition";
-import { AdminInterface } from "../models/IAdmins";
-import { GetAdminByID } from "../services/HttpClientService";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import {RegisterInterface} from "../modelsRegister/IRegister"
+import { GenderInterface } from "../modelsRegister/IGender";
+import { StatusInterface } from "../modelsRegister/IStatus";
+import { ProvinceInterface } from "../modelsRegister/IProvince";
+
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -34,24 +31,54 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+
 function App() {
   // =========================(Use State)====================================================
-
-  const [emp, setEmp] = useState<EmployeeInterface>({});
-  const [dept, setDept] = useState<DepartmentInterface[]>([]);
-  const [post, setPost] = useState<PositionInterface[]>([]);
-  const [admin, setAdmin] = useState<Partial<AdminInterface>>({ Name: "" });
+  
+  const [rg, setRg] = useState<RegisterInterface>({});
+  const [gen, setGen] = useState<GenderInterface[]>([]);
+  const [sta, setSta] = useState<StatusInterface[]>([]);
+  const [prv, setPrv] = useState<ProvinceInterface[]>([]);
 
   const [first, setFirst] = useState<String>("");
   const [last, setLast] = useState<String>("");
-  const [gender, setGender] = useState<String>("");
-  const [age, setAge] = useState<number>(0);
-  const [phone, setPhone] = useState<String>("");
-  const [address, setAddress] = useState<String>("");
-  const [date, setDate] = React.useState<Date | null>(new Date());
+  const [email, setEm] = useState<String>("");
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  const [pass, setPass] = React.useState<State>({
+    password: '',
+    showPassword: false,
+  });
+
+ 
+
+  // ==============================(handle password)=====================================
+
+  interface State {
+    password: string;
+    showPassword: boolean;
+  }
+
+
+  const handlePassword =
+    (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setPass({ ...pass, [prop]: event.target.value });
+    };
+
+  const handleClickShowPassword = () => {
+    setPass({
+      ...pass,
+      showPassword: !pass.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+
 
   // =========================(handleClose)====================================================
 
@@ -70,15 +97,14 @@ function App() {
   // =========================(HandleChange)====================================================
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof emp;
+    const name = event.target.name as keyof typeof rg;
     console.log(event.target.name);
     console.log(event.target.value);
-    setEmp({
-      ...emp,
+    setRg({
+      ...rg,
       [name]: event.target.value,
     });
-    console.log(emp.PositionID);
-    console.log(emp);
+    console.log(rg);
   };
 
   // =========================(Fetch API)====================================================
@@ -89,33 +115,32 @@ function App() {
     headers: { "Content-Type": "application/json" },
   };
 
-  const fetchDepartment = async () => {
-    fetch(`${apiUrl}/depts`, requestOptionsGet)
+  const fetchGender = async () => {
+    fetch(`${apiUrl}/genders`, requestOptionsGet)
       .then((response) => response.json())
       .then((result) => {
-        setDept(result.data);
+        setGen(result.data);
       });
   };
-  const fetchPosition = async () => {
-    fetch(`${apiUrl}/posts`, requestOptionsGet)
+  const fetchStatus = async () => {
+    fetch(`${apiUrl}/statuses`, requestOptionsGet)
       .then((response) => response.json())
       .then((result) => {
-        setPost(result.data);
+        setSta(result.data);
       });
   };
-
-  const fetchAdminByID = async () => {
-    let res = await GetAdminByID();
-    emp.AdminID = res.ID;
-    if (res) {
-      setAdmin(res);
-    }
+  const fetchProvince = async () => {
+    fetch(`${apiUrl}/provinces`, requestOptionsGet)
+      .then((response) => response.json())
+      .then((result) => {
+        setPrv(result.data);
+      });
   };
 
   useEffect(() => {
-    fetchDepartment();
-    fetchPosition();
-    fetchAdminByID();
+    fetchGender();
+    fetchStatus();
+    fetchProvince();
   }, []);
 
   const convertType = (data: string | number | undefined) => {
@@ -125,15 +150,13 @@ function App() {
 
   const submit = () => {
     let data = {
-      Name: `${first} ${last}`,
-      Gender: gender,
-      Age: age,
-      Contact: phone,
-      Address: address,
-      Date_IN: date,
-      AdminID: emp.AdminID,
-      DepartmentID: convertType(emp.DepartmentID),
-      PositionID: convertType(emp.PositionID),
+      FirstName: first,
+      LastName: last,
+      Password:  pass.password,
+      Email: email,
+      Gender_ID: convertType(rg.Gender_ID),
+      Status_ID: convertType(rg.Status_ID),
+      Province_ID: convertType(rg.Province_ID),
     };
     console.log(data);
 
@@ -143,7 +166,7 @@ function App() {
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/employees`, requestOptions)
+    fetch(`${apiUrl}/users`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         console.log(res);
@@ -157,7 +180,7 @@ function App() {
 
   return (
     <div>
-      <Container maxWidth="md" sx={{ marginTop: 6 }}>
+      <Container maxWidth="sm" sx={{ marginTop: 6 }}>
         <Paper
           elevation={4}
           sx={{
@@ -169,18 +192,14 @@ function App() {
             justifyContent: "flex-start",
           }}
         >
-          <AddCircleOutlineIcon
-            fontSize="large"
-            sx={{ marginRight: 2, marginTop: 1.8, color: "#6b7176" }}
-          />
-          <h4 style={{ color: "#6b7176" }}>Add Employee</h4>
+          <h4 style={{ color: "#6b7176" }}>Register</h4>
         </Paper>
         <form>
           <Paper
             variant="outlined"
             sx={{ padding: 2, paddingTop: 1, marginBottom: 2 }}
           >
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ marginBottom: 1.5 }}>
               {/*============================================(First name)======================================================*/}
               <Grid xs={6} md={6}>
                 <p style={{ color: "grey", fontSize: 17 }}>First name</p>
@@ -211,110 +230,59 @@ function App() {
                   }}
                 />
               </Grid>
-              {/*========================================(Gender)=========================================================*/}
-              <Grid
-                xs={6}
-                md={6}
-                sx={{ display: "flex", alignItems: "center" }}
-              >
-                <FormLabel
-                  sx={{
-                    marginRight: 5,
-                    fontSize: 17,
-                  }}
-                >
-                  Gender:
-                </FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                  onChange={(event) => {
-                    setGender(event.target.value);
-                  }}
-                >
-                  <FormControlLabel
-                    value="Female"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    value="Male"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                </RadioGroup>
-              </Grid>
-              {/*===============================================(Age)===================================================*/}
-              <Grid
-                xs={6}
-                md={4}
-                sx={{ display: "flex", alignItems: "center", paddingRight: 18 }}
-              >
-                <FormLabel sx={{ marginRight: 2, fontSize: 17 }}>
-                  Age:
-                </FormLabel>
-                <TextField
-                  id="outlined-number"
-                  type="number"
-                  fullWidth
-                  required
-                  onChange={(event) => {
-                    if (Number(event.target.value) < 0) {
-                      return (event.target.value = "0");
-                    } else {
-                      setAge(Number(event.target.value));
-                      return event.target.value;
-                    }
-                  }}
-                  // InputLabelProps={{
-                  //   shrink: true,
-                  // }}
-                />
-              </Grid>
+
             </Grid>
-            {/*===========================================(Phone)=======================================================*/}
+            {/*===========================================(email)=======================================================*/}
             <Grid container spacing={1}>
               <Grid
                 xs={12}
-                md={7}
+                md={12}
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
               >
-                <FormLabel sx={{ marginRight: 6, fontSize: 17 }}>
-                  Phone:
+                <FormLabel sx={{ marginRight: 7, fontSize: 17 }}>
+                  Email:
                 </FormLabel>
                 <TextField
                   id="outlined-basic"
-                  label="โทรศัพท์"
+                  label="กรุณาป้อนอีเมล"
                   variant="outlined"
                   required
                   onChange={(event) => {
-                    setPhone(event.target.value);
+                    setEm(event.target.value);
                   }}
+                  fullWidth
+                  type="email"
+                />
+              </Grid>
+              {/*==============================================(password)====================================================*/}
+              <Grid
+                xs={12}
+                md={9}
+                sx={{ display: "flex", alignItems: "center", margin: 1 }}
+              >
+
+                <InputLabel htmlFor="outlined-adornment-password" sx={{ marginRight: 3, fontSize: 17 }}>Password:</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={pass.showPassword ? 'text' : 'password'}
+                  value={pass.password}
+                  onChange={handlePassword('password')}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {pass.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
                   inputProps={{ maxLength: 10 }}
                 />
               </Grid>
-              {/*==============================================(Addresss)====================================================*/}
-              <Grid
-                xs={12}
-                md={9}
-                sx={{ display: "flex", alignItems: "center", margin: 1 }}
-              >
-                <FormLabel sx={{ marginRight: 4.5, fontSize: 17 }}>
-                  Address:
-                </FormLabel>
-                <TextField
-                  id="outlined-basic"
-                  label="ที่อยู่"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  onChange={(event) => {
-                    setAddress(event.target.value);
-                  }}
-                />
-              </Grid>
-              {/*=======================================(select Position)===========================================================*/}
+              {/*=======================================(select Gender)===========================================================*/}
               <Grid
                 xs={12}
                 md={9}
@@ -322,34 +290,34 @@ function App() {
               >
                 <FormLabel
                   id="demo-simple-select-helper-label"
-                  sx={{ marginRight: 5, fontSize: 17, paddingBottom: 2 }}
+                  sx={{ marginRight: 5.5, fontSize: 17, paddingBottom: 2 }}
                 >
-                  Position:
+                  Gender:
                 </FormLabel>
                 <Select
                   required
-                  id="post"
-                  value={emp.PositionID + ""}
+                  id="Gender"
+                  value={rg.Gender_ID + ""}
                   onChange={handleChange}
                   fullWidth
                   inputProps={{
-                    name: "PositionID",
+                    name: "Gender_ID",
                   }}
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {post.map((item) => (
+                  {gen.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
-                      {item.Name}
+                      {item.Gender}
                     </MenuItem>
                   ))}
                 </Select>
                 <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
-                  choose an employee position
+                  กรุณาเลือกเพศของคุณ
                 </FormHelperText>
               </Grid>
-              {/*=======================================(select Department)===========================================================*/}
+              {/*=======================================(select Status)===========================================================*/}
               <Grid
                 xs={12}
                 md={8}
@@ -357,35 +325,34 @@ function App() {
               >
                 <FormLabel
                   id="demo-simple-select-helper-label"
-                  sx={{ marginRight: 1.5, fontSize: 17, paddingBottom: 2 }}
+                  sx={{ marginRight: 6.5, fontSize: 17, paddingBottom: 2 }}
                 >
-                  Department:
+                  Status:
                 </FormLabel>
                 <Select
                   // labelId="demo-simple-select-helper-label"
-                  id="DeptID"
-                  value={emp.DepartmentID + ""}
+                  id="StatusID"
+                  value={rg.Status_ID + ""}
                   onChange={handleChange}
                   inputProps={{
-                    name: "DepartmentID",
+                    name: "Status_ID",
                   }}
                   fullWidth
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {dept.map((item) => (
+                  {sta.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
-                      {item.DeptName}
+                      {item.Status}
                     </MenuItem>
                   ))}
                 </Select>
                 <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
-                  choose an employee position
+                  สถานะปัจจุบัน
                 </FormHelperText>
               </Grid>
-              {/*=======================================(Date)===========================================================*/}
-
+              {/*=======================================(Province)===========================================================*/}
               <Grid
                 xs={12}
                 md={8}
@@ -393,21 +360,34 @@ function App() {
               >
                 <FormLabel
                   id="demo-simple-select-helper-label"
-                  sx={{ marginRight: 8, fontSize: 17, paddingBottom: 2 }}
+                  sx={{ marginRight: 4.5, fontSize: 17, paddingBottom: 2 }}
                 >
-                  Date:
+                  Province:
                 </FormLabel>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DateTimePicker
-                    label="เลือกวันและเวลา"
-                    renderInput={(params) => <TextField {...params} />}
-                    value={date}
-                    onChange={(newValue) => {
-                      setDate(newValue);
-                    }}
-                  />
-                </LocalizationProvider>
+                <Select
+                  // labelId="demo-simple-select-helper-label"
+                  id="ProvinceID"
+                  value={rg.Province_ID + ""}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "Province_ID",
+                  }}
+                  fullWidth
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {prv.map((item) => (
+                    <MenuItem key={item.ID} value={item.ID}>
+                      {item.Province}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText disabled sx={{ width: 350, marginLeft: 2 }}>
+                  เลือกจังหวัดที่อยู่
+                </FormHelperText>
               </Grid>
+
               <Grid
                 container
                 xs={12}
@@ -415,7 +395,7 @@ function App() {
                 sx={{ justifyContent: "center", margin: 1 }}
               >
                 <Button variant="contained" size="large" onClick={submit}>
-                  INSERT
+                  สมัครสมาชิก
                 </Button>
               </Grid>
             </Grid>

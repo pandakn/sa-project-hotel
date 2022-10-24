@@ -11,6 +11,8 @@ import Booking from "./components/Booking";
 import PaymentConfirmation from "./components/PaymentConfirmation";
 import CheckInIndex from "./components/CheckInIndex";
 import CheckOut from "./components/CheckOut";
+import Register from "./components/Register";
+
 
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Index />} />
       <Route path="/booking" element={<User />}></Route>
+      < Route path="/register" element={<Register />}/>
       {/* <Route path="/booking" element={<Booking />} /> */}
       <Route path="/booking/payment" element={<PaymentConfirmation />} />
       <Route path="/admin" element={<Admin />}>
@@ -28,6 +31,7 @@ function App() {
   
 
       </Route>
+
     </Routes>
   );
 }

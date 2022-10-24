@@ -172,6 +172,19 @@ function SignIn({ signIn }: Prop) {
               >
                 Back
               </Link>
+              <Link
+                to="/register"
+                style={{
+                  color: "#252525",
+                  textDecoration: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: 20
+                }}
+              >
+                Create Account
+              </Link>
+
             </Box>
           </Box>
         </Grid>
