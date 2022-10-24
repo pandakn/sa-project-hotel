@@ -1,18 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { RoomTypesInterface } from '../models/IRoomTypes';
-import { GetRoomTypes } from '../services/HttpClientService';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import { RoomTypesInterface } from "../models/IRoomTypes";
+import { GetRoomTypes } from "../services/HttpClientService";
 
+import PaymentConfirmation from "./PaymentConfirmation";
+import { Dayjs } from "dayjs";
 
 type Props = {
   title: string;
@@ -20,10 +24,26 @@ type Props = {
   bed: string;
   size: string;
   img: string;
+  description: string;
+  roomNumber: string;
 };
 
-export default function MediaControlCard({ title, price, bed, size, img }: Props) {
+export default function MediaControlCard({
+  title,
+  price,
+  bed,
+  size,
+  img,
+  description,
+  roomNumber,
+
+}: Props) {
   const roomSize = size.split(" ")[0];
+
+  const submit = (e: any) => {
+    console.log("clicked");
+    console.log(e);
+  };
 
   return (
     <Card
@@ -34,7 +54,7 @@ export default function MediaControlCard({ title, price, bed, size, img }: Props
       className={title}
     >
       <CardMedia component="img" height="200" image={img} alt="green iguana" />
-      <CardContent >
+      <CardContent>
         <Box
           sx={{
             display: "flex",
@@ -58,26 +78,27 @@ export default function MediaControlCard({ title, price, bed, size, img }: Props
             ฿{price}/night
           </Typography>
         </Box>
+        <Typography variant="h5" style={{ marginBottom: "0.5rem" }}>
+          เลขห้อง: {roomNumber}
+        </Typography>
         <Typography
           variant="body2"
-          color="text"
+          color="text.secondary"
           style={{ marginBottom: "0.5rem" }}
         >
           Room Size: {roomSize} <span>m&#178;</span>
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          style={{ marginBottom: "0.5rem" }}
+        >
           {bed}
         </Typography>
+        <Typography variant="body2" color="text.secondary">
+          โซนห้อง: {description}
+        </Typography>
       </CardContent>
-      <CardActions>
-        {/* <Link
-          
-          to="/user/booking"
-          style={{ textDecoration: "none", textTransform: "uppercase", color: "#0072E5" }}
-        >
-          <Button className={title} onClick={submit}>Select Room</Button>
-        </Link> */}
-      </CardActions>
     </Card>
   );
-};
+}

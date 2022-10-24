@@ -11,4 +11,5 @@ export interface RoomsInterface {
   RoomType?: RoomTypesInterface,
   AdminID?:number,
   Admin?: AdminInterface,
+  Status?: boolean,
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { RoomsInterface } from "../models/IRoom";
 import { RoomTypesInterface } from "../models/IRoomTypes";
 
-import MediaCard from "../components/MediaCard";
 import SignIn from "../components/SignIn";
 
 import { UserLogin } from "../services/HttpClientService";
@@ -14,6 +13,7 @@ import { Box, Button } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 import Booking from "../components/Booking";
+import NavBarUser from "../components/NavBarUser";
 
 function User() {
   const [roomTypes, setRoomTypes] = useState<Partial<RoomTypesInterface[]>>([]);
@@ -39,6 +39,7 @@ function User() {
 
   return (
     <div>
+      <NavBarUser />
       <Booking />
     </div>
   );

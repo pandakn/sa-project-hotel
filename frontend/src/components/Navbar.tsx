@@ -49,7 +49,7 @@ function Navbar() {
             justifyContent: "space-between",
             alignItems: "center",
             flexGrow: 1,
-            bgcolor: "#F7F5F2",
+            bgcolor: "#F7F5F2", 
             p: 1,
             gap: 1,
           }}

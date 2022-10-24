@@ -41,7 +41,7 @@ function Home() {
           }}
         >
           <Link
-            to="user"
+            to="booking"
             style={{
               textDecoration: "none",
             }}

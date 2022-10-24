@@ -2,8 +2,8 @@ import { RoomsInterface } from "../models/IRoom"
 
 export interface BookingInterface{
     ID?: number,
-    Room?: number,
-    RoomID?: RoomsInterface,
+    Room?: RoomsInterface,
+    RoomID?: number,
     UserID?: number,
     FromDate?: Date,
     ToDate?: Date,

@@ -14,9 +14,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Index />} />
-      <Route path="/user" element={<User />} />
-      <Route path="/user/booking" element={<Booking />} />
-      <Route path="/user/booking/payment" element={<PaymentConfirmation />} />
+      <Route path="/booking" element={<User />}></Route>
+      {/* <Route path="/booking" element={<Booking />} /> */}
+      <Route path="/booking/payment" element={<PaymentConfirmation />} />
       <Route path="/admin" element={<Admin />}>
         <Route path="create-room" element={<CreateRoom />} />
         <Route path="create-employee" element={<CreateEmployee />} />
