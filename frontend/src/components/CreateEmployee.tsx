@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
@@ -14,18 +13,17 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import dayjs, { Dayjs } from "dayjs";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import Button from "@mui/material/Button";
 import { DepartmentInterface } from "../modelsEmpoyee/IDepartment";
-import { isTemplateExpression } from "typescript";
 import { EmployeeInterface } from "../modelsEmpoyee/IEmployee";
 import { PositionInterface } from "../modelsEmpoyee/IPosition";
 import { AdminInterface } from "../models/IAdmins";
 import { GetAdminByID } from "../services/HttpClientService";
-import AlertTitle from "@mui/material/AlertTitle";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
@@ -50,7 +48,7 @@ function App() {
   const [age, setAge] = useState<number>(0);
   const [phone, setPhone] = useState<String>("");
   const [address, setAddress] = useState<String>("");
-  const [date, setDate] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
+  const [date, setDate] = React.useState<Date | null>(new Date());
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -132,7 +130,7 @@ function App() {
       Age: age,
       Contact: phone,
       Address: address,
-      Date: date,
+      Date_IN: date,
       AdminID: emp.AdminID,
       DepartmentID: convertType(emp.DepartmentID),
       PositionID: convertType(emp.PositionID),
@@ -236,20 +234,15 @@ function App() {
                   }}
                 >
                   <FormControlLabel
-                    value="female"
+                    value="Female"
                     control={<Radio />}
                     label="Female"
                   />
                   <FormControlLabel
-                    value="male"
+                    value="Male"
                     control={<Radio />}
                     label="Male"
                   />
-                  {/* <FormControlLabel
-                    value="other"
-                    control={<Radio />}
-                    label="Other"
-                  /> */}
                 </RadioGroup>
               </Grid>
               {/*===============================================(Age)===================================================*/}
@@ -298,6 +291,7 @@ function App() {
                   onChange={(event) => {
                     setPhone(event.target.value);
                   }}
+                  inputProps={{ maxLength: 10 }}
                 />
               </Grid>
               {/*==============================================(Addresss)====================================================*/}
@@ -403,19 +397,7 @@ function App() {
                 >
                   Date:
                 </FormLabel>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  {/* <DatePicker
-                    disableFuture
-                    label="เลือกวันที่"
-                    openTo="year"
-                    views={["year", "month", "day"]}
-                    value={date}
-                    onChange={(newValue) => {
-                      setDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  /> */}
-
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DateTimePicker
                     label="เลือกวันและเวลา"
                     renderInput={(params) => <TextField {...params} />}

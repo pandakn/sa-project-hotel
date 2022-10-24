@@ -33,10 +33,15 @@ func SetupDatabase() {
 		&Status{},
 		&Province{},
 
+		&Booking{},
+		&Payment{},
+
 	)
 
 	Db = database
 
 	LoadRoom()
 	MockupRegis()
+	MockupEmp()
+	MockUpBooking()
 }

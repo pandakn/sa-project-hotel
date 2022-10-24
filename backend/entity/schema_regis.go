@@ -3,7 +3,9 @@ package entity
 import (
 
 	"gorm.io/gorm"
+
 )
+
 
 
 type Gender struct {
@@ -32,6 +34,7 @@ type Register struct {
 	LastName	string
 	Password    string
 	Email		string	`gorm:"uniqueIndex"`
+	Bookings  []Booking `gorm:"foreignKey:RegisterID"`
 
 	Gender_ID *uint
 	Gender   Gender

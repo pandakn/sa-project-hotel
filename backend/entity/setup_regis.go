@@ -1,5 +1,9 @@
 package entity
 
+var  RegisterA Register
+var  RegisterB Register
+var  RegisterC Register
+
 
 func MockupRegis() {
 
@@ -52,7 +56,7 @@ func MockupRegis() {
 		Db.Model(&Province{}).Create(&ProvinceC)
 
 		// Register(main)
-		Db.Model(&Register{}).Create(&Register{
+		RegisterA = Register{
 			Gender: GenderA,
 			Status: StatusA,
 			Province: ProvinceA ,
@@ -60,9 +64,10 @@ func MockupRegis() {
 			LastName: "Mujarin",
 			Password: "11111111",
 			Email: "Bluetae.20@gmail.com",
-		})
+		}
+		Db.Model(&Register{}).Create(&RegisterA)
 
-		Db.Model(&Register{}).Create(&Register{
+		RegisterB = Register{
 			Gender: GenderB,
 			Status: StatusB,
 			Province: ProvinceB,
@@ -71,8 +76,9 @@ func MockupRegis() {
 			Password: "22222222",
 			Email: "Lali_00@gmail.com",
 		})
+		Db.Model(&Register{}).Create(&RegisterB)
 	
-		Db.Model(&Register{}).Create(&Register{
+		RegisterC = Register{
 			Gender: GenderC,
 			Status: StatusC,
 			Province: ProvinceC,
@@ -81,6 +87,7 @@ func MockupRegis() {
 			Password: "333333333",
 			Email: "Panita_11@gmail.com",
 		})
+		Db.Model(&Register{}).Create(&RegisterC)
 	
 	
 }

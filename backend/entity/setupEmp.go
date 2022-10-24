@@ -8,10 +8,6 @@ func MockupEmp() {
 	// -------------------(Create value User_Admin)-----------------------------------
 
 	// -------------------(ค้นหา AdminID ด้วย User_name ที่เข้าระบบมาใส่ใน  Entity Employee)-------------------------------
-	var Jardang Admin
-	var Bigtu Admin
-	Db.Raw("SELECT * FROM admins WHERE user_name = ?", "admin01").Scan(&Jardang)
-	Db.Raw("SELECT * FROM admins WHERE user_name = ?", "admin02").Scan(&Bigtu)
 
 	// -------------------(Create value Position)-----------------------------------
 
@@ -82,14 +78,14 @@ func MockupEmp() {
 	sal2 := Salary{
 		Department: dept2,
 		Position:   post3,
-		Amount:     2800,
+		Amount:     28000,
 	}
 	Db.Model(&Salary{}).Create(&sal2)
 
 	sal3 := Salary{
 		Department: dept3,
 		Position:   post2,
-		Amount:     2100,
+		Amount:     21000,
 	}
 	Db.Model(&Salary{}).Create(&sal3)
 
@@ -99,38 +95,38 @@ func MockupEmp() {
 		Department: dept1,
 		Position:   post2,
 		Salary:     sal1,
-		Admin:      Bigtu,
-		Name:       "ข้าวเกรียบ พระบิดา",
+		Admin:      AdminA,
+		Name:       "พระบิดา",
 		Gender:     "Male",
 		Age:        62,
-		Contact:    "084211xxx",
+		Contact:    "080xxxxxx",
 		Address:    "90/3 บ.หนองน้ำ",
-		Date:       time.Now(),
+		Date_IN:    time.Now(),
 	})
 
 	Db.Model(&Employee{}).Create(&Employee{
 		Department: dept2,
 		Position:   post3,
 		Salary:     sal2,
-		Admin:      Jardang,
+		Admin:      AdminA,
 		Name:       "จารย์แดง กีต้าไฟ",
 		Gender:     "Male",
 		Age:        64,
-		Contact:    "089233xxx",
+		Contact:    "089233xxxx",
 		Address:    "111/7 บ.หนองฮี",
-		Date:       time.Now(),
+		Date_IN:    time.Now(),
 	})
 
 	Db.Model(&Employee{}).Create(&Employee{
 		Department: dept3,
 		Position:   post2,
 		Salary:     sal3,
-		Admin:      Bigtu,
+		Admin:      AdminB,
 		Name:       "ลุงโทนี่",
 		Gender:     "Male",
 		Age:        52,
-		Contact:    "089111xxx",
+		Contact:    "089111xxxx",
 		Address:    "12/4 บ.บึง",
-		Date:       time.Now(),
+		Date_IN:    time.Now(),
 	})
 }

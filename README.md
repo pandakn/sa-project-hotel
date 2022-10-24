@@ -19,4 +19,5 @@ branch main จะเป็น branch ที่เอาไว้รวมโค
     git checkout [branch-name]	//Switch branch
     git checkout -b [branch-name]	//Create and Switch branch
     git checkout -d [branch-name]	//Delete branch
+    git branch --delete <branchname>
 	

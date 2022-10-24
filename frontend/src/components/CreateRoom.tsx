@@ -3,7 +3,12 @@ import { RoomsInterface } from "../models/IRoom";
 import { RoomTypesInterface } from "../models/IRoomTypes";
 import { RoomZonesInterface } from "../models/IRoomZones";
 import { AdminInterface } from "../models/IAdmins";
-import { GetAdminByID, GetRoomTypes, GetRoomZones, CreateRooms } from "../services/HttpClientService";
+import {
+  GetAdminByID,
+  GetRoomTypes,
+  GetRoomZones,
+  CreateRooms,
+} from "../services/HttpClientService";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -39,7 +44,7 @@ function CreateRoom() {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     const name = event.target.name as keyof typeof room;
     setRoom({
       ...room,
@@ -55,7 +60,7 @@ function CreateRoom() {
       setRoomType(response);
     }
   };
-  
+
   const fetchRoomZones = async () => {
     const response = await GetRoomZones();
     if (response) {
@@ -103,7 +108,7 @@ function CreateRoom() {
           display: "flex",
           justifyContent: "center",
           width: "100%",
-          ml: 10
+          ml: 10,
         }}
       >
         <Box
@@ -157,7 +162,7 @@ function CreateRoom() {
             >
               <TextField
                 required
-                type="string" 
+                type="string"
                 fullWidth
                 id="roomNumber"
                 label="เลขห้อง"

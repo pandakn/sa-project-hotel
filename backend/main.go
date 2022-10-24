@@ -47,6 +47,36 @@ func main() {
 			// Admin Routes
 			r.GET("/admin/:id", controller.GetAdmin)
 			r.GET("/admins", controller.ListAdmins)
+
+			//Department
+			r.GET("/depts", controller.ListDepts)
+			r.GET("/dept/:id", controller.GetDept)
+
+			//Position
+			r.GET("/posts", controller.ListPosts)
+			r.GET("/post/:id", controller.GetPost)
+
+			//Salary
+			r.GET("/salaries", controller.ListSalaries)
+			r.GET("/salary/:id", controller.GetSalary)
+
+			// Employee
+			r.GET("/employees", controller.ListEmps)
+			r.GET("/employee/:id", controller.GetEmployee)
+			r.POST("/employees", controller.CreateEmployee)
+
+			// Booking Routes
+			r.GET("/bookings", controller.GetBookings)
+			r.GET("/booking/:id", controller.GetBookingByID)
+			r.POST("/create_booking", controller.CreateBooking)
+
+			// Register Routes
+			r.GET("/user/:id", controller.GetUserByID)
+			r.GET("/users", controller.GetUsers)
+
+			// Payment Routes
+			r.GET("/payment/:id", controller.GetPaymentByID)
+			r.GET("/payments", controller.GetPayments)
 		}
 	}
 
