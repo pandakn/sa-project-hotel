@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/pandakn/sa-65-example/entity"
+	"gorm.io/gorm/clause"
 )
 
 // POST /rooms
@@ -65,11 +66,24 @@ func GetRoom(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": room})
 }
 
+// GET /user/:id
+// func GetRoomByType(c *gin.Context) {
+// 	var room entity.Room
+// 	id := c.Param("id")
+// 	// roomType :
+
+// 	if err := entity.DB().Preload("RoomZone").Preload("RoomType").Preload("Admin").Raw("SELECT * FROM rooms WHERE id = ?", id).First(&room).Error; err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, gin.H{"data": room})
+// }
+
 // GET /rooms
 func ListRooms(c *gin.Context) {
 	var rooms []entity.Room
 
-	if err := entity.DB().Preload("RoomZone").Preload("RoomType").Preload("Admin").Raw("SELECT * FROM rooms").Find(&rooms).Error; err != nil {
+	if err := entity.DB().Preload(clause.Associations).Preload("Bookings").Raw("SELECT * FROM rooms").Find(&rooms).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

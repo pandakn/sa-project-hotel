@@ -170,7 +170,7 @@ function SignIn() {
                   justifyContent: "center",
                 }}
               >
-                กลับหน้าแรก
+                Back
               </Link>
             </Box>
           </Box>

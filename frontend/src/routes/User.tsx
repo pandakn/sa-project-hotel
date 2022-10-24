@@ -3,6 +3,7 @@ import { RoomsInterface } from "../models/IRoom";
 import { RoomTypesInterface } from "../models/IRoomTypes";
 
 import MediaCard from "../components/MediaCard";
+import SignIn from "../components/SignIn";
 
 import { GetRoomTypes } from "../services/HttpClientService";
 
@@ -12,21 +13,31 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 function User() {
   const [roomTypes, setRoomTypes] = useState<Partial<RoomTypesInterface[]>>([]);
+  // const [token, setToken] = useState<String>("");
 
+  // if (!token) {
+  //   return <SignIn />;
+  // }
   const fetchRooms = async () => {
     let res = await GetRoomTypes();
     setRoomTypes(res);
   };
 
+  // const checkToken = () => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     setToken(token);
+  //   }
+  // }
+
   useEffect(() => {
     fetchRooms();
+    // checkToken();
   }, []);
-
-  console.log(roomTypes);
 
   return (
     <div>
-      <Box
+      <Box 
         sx={{
           display: "flex",
           flexDirection: "column",

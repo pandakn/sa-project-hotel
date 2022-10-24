@@ -1,11 +1,18 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import { RoomTypesInterface } from '../models/IRoomTypes';
+import { GetRoomTypes } from '../services/HttpClientService';
+
 
 type Props = {
   title: string;
@@ -15,15 +22,8 @@ type Props = {
   img: string;
 };
 
-const MediaCard = ({ title, price, bed, size, img }: Props) => {
-  // split เอาแค่ตัวเลข
+export default function MediaControlCard({ title, price, bed, size, img }: Props) {
   const roomSize = size.split(" ")[0];
-
-  const submit = (e: any) => {
-    console.log(e);
-    const type = e.target.classList[6];
-    console.log(type);
-  }
 
   return (
     <Card
@@ -70,16 +70,14 @@ const MediaCard = ({ title, price, bed, size, img }: Props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link
+        {/* <Link
           
           to="/user/booking"
           style={{ textDecoration: "none", textTransform: "uppercase", color: "#0072E5" }}
         >
           <Button className={title} onClick={submit}>Select Room</Button>
-        </Link>
+        </Link> */}
       </CardActions>
     </Card>
   );
 };
-
-export default MediaCard;
