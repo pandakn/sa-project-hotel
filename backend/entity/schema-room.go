@@ -14,6 +14,7 @@ type Admin struct {
 	Rooms    []Room     `gorm:"foreignKey:AdminID"`
 	Employee []Employee `gorm:"foreignKey:AdminID"`
 	CheckOut []CheckOut `gorm:"foreignKey:AdminID"`
+	CheckIn  []CheckIn  `gorm:"foreignKey:AdminID"`
 }
 
 type RoomType struct {

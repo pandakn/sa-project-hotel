@@ -47,4 +47,5 @@ type Booking struct {
 	NumberOfGuests int
 	Status         string
 	CheckOut       []CheckOut `gorm:"foreignKey:BookingID"`
+	CheckIn        []CheckIn  `gorm:"foreignKey:BookingID"`
 }
