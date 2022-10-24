@@ -10,6 +10,7 @@ import CreateEmployee from "./components/CreateEmployee";
 import Booking from "./components/Booking";
 import PaymentConfirmation from "./components/PaymentConfirmation";
 import CheckInIndex from "./components/CheckInIndex";
+import CheckOut from "./components/CheckOut";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="create-room" element={<CreateRoom />} />
         <Route path="create-employee" element={<CreateEmployee />} />
         <Route path="check-in" element={<CheckInIndex />} />
+        <Route path="check-out" element={<CheckOut />} />
   
 
       </Route>
