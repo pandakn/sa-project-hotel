@@ -2,9 +2,12 @@ package entity
 
 import "time"
 
+var BookA Booking
+var BookB Booking
+var BookC Booking
+
 func MockUpBooking() {
 	// Register Section ---------------------------------------------
-	
 
 	// Payment Section ------------------------------------------------
 	DateTimePaymentA := time.Date(2022, time.September, 01, 13, 23, 44, 0, time.Local)
@@ -41,7 +44,7 @@ func MockUpBooking() {
 	FromDateC := time.Date(2022, time.November, 12, 0, 0, 0, 0, time.Local)
 	ToDateC := time.Date(2022, time.November, 16, 0, 0, 0, 0, time.Local)
 
-	Db.Model(&Booking{}).Create(&Booking{
+	BookA = Booking{
 		Room:           RoomA,
 		Register:       RegisterA,
 		Payment:        PaymentA,
@@ -49,9 +52,10 @@ func MockUpBooking() {
 		ToDate:         ToDateA,
 		NumberOfGuests: 2,
 		Status:         "confirm",
-	})
+	}
+	Db.Model(&Booking{}).Create(&BookA)
 
-	Db.Model(&Booking{}).Create(&Booking{
+	BookB = Booking{
 		Room:           RoomB,
 		Register:       RegisterB,
 		Payment:        PaymentB,
@@ -59,9 +63,10 @@ func MockUpBooking() {
 		ToDate:         ToDateB,
 		NumberOfGuests: 3,
 		Status:         "confirm",
-	})
+	}
+	Db.Model(&Booking{}).Create(&BookB)
 
-	Db.Model(&Booking{}).Create(&Booking{
+	BookC = Booking{
 		Room:           RoomC,
 		Register:       RegisterC,
 		Payment:        PaymentC,
@@ -69,5 +74,6 @@ func MockUpBooking() {
 		ToDate:         ToDateC,
 		NumberOfGuests: 1,
 		Status:         "unconfirm",
-	})
+	}
+	Db.Model(&Booking{}).Create(&BookC)
 }

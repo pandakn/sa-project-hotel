@@ -13,6 +13,7 @@ type Admin struct {
 	Avatar   string
 	Rooms    []Room     `gorm:"foreignKey:AdminID"`
 	Employee []Employee `gorm:"foreignKey:AdminID"`
+	CheckOut []CheckOut `gorm:"foreignKey:AdminID"`
 }
 
 type RoomType struct {

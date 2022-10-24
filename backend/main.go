@@ -77,6 +77,15 @@ func main() {
 			// Payment Routes
 			r.GET("/payment/:id", controller.GetPaymentByID)
 			r.GET("/payments", controller.GetPayments)
+
+			// / CheckOut Routes
+			r.GET("/checkouts", controller.ListCheckOuts)
+			r.GET("/check/:id", controller.GetCheckOut)
+			r.POST("/checkouts", controller.CreateCheckOut)
+
+			// Fine Routes
+			r.GET("/fine/:id", controller.GetFine)
+			r.GET("/fines", controller.ListFines)
 		}
 	}
 

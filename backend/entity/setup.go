@@ -36,6 +36,8 @@ func SetupDatabase() {
 		&Booking{},
 		&Payment{},
 
+		&Fine{},
+		&CheckOut{},
 	)
 
 	Db = database
@@ -44,4 +46,5 @@ func SetupDatabase() {
 	MockupRegis()
 	MockupEmp()
 	MockUpBooking()
+	LoadCheckOut()
 }
