@@ -21,7 +21,6 @@ function App() {
         <Route path="create-room" element={<CreateRoom />} />
         <Route path="create-employee" element={<CreateEmployee />} />
       </Route>
-      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }

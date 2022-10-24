@@ -5,83 +5,41 @@ import { RoomTypesInterface } from "../models/IRoomTypes";
 import MediaCard from "../components/MediaCard";
 import SignIn from "../components/SignIn";
 
+import { UserLogin } from "../services/HttpClientService";
+
 import { GetRoomTypes } from "../services/HttpClientService";
 
 import { Link } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
+import Booking from "../components/Booking";
+
 function User() {
   const [roomTypes, setRoomTypes] = useState<Partial<RoomTypesInterface[]>>([]);
-  // const [token, setToken] = useState<String>("");
+  const [token, setToken] = useState<String>("");
 
-  // if (!token) {
-  //   return <SignIn />;
-  // }
   const fetchRooms = async () => {
     let res = await GetRoomTypes();
     setRoomTypes(res);
   };
 
-  // const checkToken = () => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     setToken(token);
-  //   }
-  // }
-
   useEffect(() => {
     fetchRooms();
-    // checkToken();
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      setToken(token);
+    }
   }, []);
+
+  if (!token) {
+    return <SignIn signIn={UserLogin} />;
+  }
 
   return (
     <div>
-      <Box 
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          overflow: "hidden",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            gap: 5,
-          }}
-        >
-          {roomTypes.map((item) => (
-            <MediaCard
-              key={item?.ID}
-              title={item?.Name!}
-              price={item?.Price!}
-              bed={item?.Bed!}
-              size={item?.RoomSize!}
-              img={item?.CoverImage + ""}
-            />
-          ))}
-        </Box>
-        <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
-          <Button
-            variant="contained"
-            startIcon={<KeyboardBackspaceIcon />}
-            style={{
-              textTransform: "capitalize",
-              marginTop: "2rem",
-              fontSize: "1rem",
-              borderRadius: 20,
-              backgroundColor: "#3e8af7",
-              padding: "18px 36px",
-              // fontSize: "18px",
-            }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
+      <Booking />
     </div>
   );
 }

@@ -26,6 +26,29 @@ const Login = async (data: LoginInterface) => {
   return res;
 };
 
+const UserLogin = async (data: LoginInterface) => {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch("http://localhost:8080/user-login", requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("uid", res.data.id);
+        console.log(res.data);
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+};
+
 const requestOptionsGet = {
   method: "GET",
   headers: { "Content-Type": "application/json" },
@@ -106,4 +129,5 @@ export {
   CreateRooms,
   Login,
   GetRooms,
+  UserLogin,
 };

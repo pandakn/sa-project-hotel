@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
+
+import { Login } from "../services/HttpClientService";
 import SignIn from "../components/SignIn";
 
 import Navbar from "../components/Navbar";
@@ -17,7 +19,7 @@ function Admin() {
   }, []);
 
   if (!token) {
-    return <SignIn />;
+    return <SignIn signIn={Login} />;
   }
 
   return (
