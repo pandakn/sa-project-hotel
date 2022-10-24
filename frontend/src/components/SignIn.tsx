@@ -28,7 +28,11 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 const theme = createTheme();
 
-function SignIn() {
+type Prop = {
+  signIn: any,
+}
+
+function SignIn({ signIn }: Prop) {
   // Partial จะช่วยให้ ทุกฟิลด์ใน interface กลายเป็น optional
   const [login, setLogin] = useState<Partial<LoginInterface>>({});
   const [success, setSuccess] = useState(false);
@@ -55,7 +59,7 @@ function SignIn() {
   };
 
   const submit = async () => {
-    let res = await Login(login);
+    let res = await signIn(login);
     if (res) {
       setSuccess(true);
       setTimeout(() => {
@@ -170,7 +174,7 @@ function SignIn() {
                   justifyContent: "center",
                 }}
               >
-                กลับหน้าแรก
+                Back
               </Link>
             </Box>
           </Box>

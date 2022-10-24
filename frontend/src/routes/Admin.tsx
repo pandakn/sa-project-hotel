@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import Login from "../components/SignIn";
+
+import { Login } from "../services/HttpClientService";
+import SignIn from "../components/SignIn";
 
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
@@ -17,7 +19,7 @@ function Admin() {
   }, []);
 
   if (!token) {
-    return <Login />;
+    return <SignIn signIn={Login} />;
   }
 
   return (

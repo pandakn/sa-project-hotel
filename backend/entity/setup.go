@@ -24,18 +24,26 @@ func SetupDatabase() {
 		&Admin{},
 		&RoomType{},
 		&RoomZone{},
+		//Employee
 		&Department{},
 		&Position{},
 		&Salary{},
 		&Employee{},
+		//Register
 		&Register{},
 		&Gender{},
 		&Status{},
 		&Province{},
-
+		//Booking
 		&Booking{},
 		&Payment{},
-
+		//Check Out
+		&Fine{},
+		&CheckOut{},
+		//Check In
+		&ExtraService{},
+		&ExtraBed{},
+		&CheckIn{},
 	)
 
 	Db = database
@@ -44,4 +52,6 @@ func SetupDatabase() {
 	MockupRegis()
 	MockupEmp()
 	MockUpBooking()
+	LoadCheckOut()
+	LoadCheckIn()
 }

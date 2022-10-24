@@ -77,11 +77,34 @@ func main() {
 			// Payment Routes
 			r.GET("/payment/:id", controller.GetPaymentByID)
 			r.GET("/payments", controller.GetPayments)
+
+			// / CheckOut Routes
+			r.GET("/checkouts", controller.ListCheckOuts)
+			r.GET("/check/:id", controller.GetCheckOut)
+			r.POST("/checkouts", controller.CreateCheckOut)
+
+			// Fine Routes
+			r.GET("/fine/:id", controller.GetFine)
+			r.GET("/fines", controller.ListFines)
+
+			// CheckIn Routes
+			r.GET("/checkins", controller.ListCheckIns)
+			r.GET("/checkin/:id", controller.GetCheckIn)
+			r.POST("/checkins", controller.CreateCheckIns)
+
+			// ExtraBed Routes
+			r.GET("/extrabeds", controller.ListExtraBeds)
+			r.GET("/extrabeds/:id", controller.GetExtraBed)
+
+			// ExtraService Routes
+			r.GET("/extraservices", controller.ListExtraServices)
+			r.GET("/extraservice/:id", controller.GetExtraService)
 		}
 	}
 
 	// login User Route
 	r.POST("/login", controller.Login)
+	r.POST("/user-login", controller.UserLogin)
 
 	// Run the server
 	r.Run()

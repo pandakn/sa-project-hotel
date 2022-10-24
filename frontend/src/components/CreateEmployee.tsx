@@ -400,9 +400,9 @@ function App() {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DateTimePicker
                     label="เลือกวันและเวลา"
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params: any) => <TextField {...params} />}
                     value={date}
-                    onChange={(newValue) => {
+                    onChange={(newValue: any) => {
                       setDate(newValue);
                     }}
                   />
