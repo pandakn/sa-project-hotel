@@ -255,7 +255,7 @@ function App() {
                     setEm(event.target.value);
                   }}
                   fullWidth
-                  type="Email" id="email"
+                  type="email"
                 />
               </Grid>
               {/*==============================================(password)====================================================*/}
