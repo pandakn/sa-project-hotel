@@ -70,14 +70,14 @@ func main() {
 			r.GET("/booking/:id", controller.GetBookingByID)
 			r.POST("/create_booking", controller.CreateBooking)
 
-				// Register Routes
-				r.GET("/user/:id", controller.GetUserByID)
-				r.GET("/users", controller.GetUsers)
-				r.GET("/genders",controller.ListGender)
-				r.GET("/statuses",controller.ListStatus)
-				r.GET("/provinces",controller.ListProvince)
-				r.POST("/users",controller.CreateRegis)
-				
+			// Register Routes
+			r.GET("/user/:id", controller.GetUserByID)
+			r.GET("/users", controller.GetUsers)
+			r.GET("/genders", controller.ListGender)
+			r.GET("/statuses", controller.ListStatus)
+			r.GET("/provinces", controller.ListProvince)
+			r.POST("/users", controller.CreateRegis)
+
 			// Payment Routes
 			r.GET("/payment/:id", controller.GetPaymentByID)
 			r.GET("/payments", controller.GetPayments)

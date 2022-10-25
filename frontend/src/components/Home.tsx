@@ -30,7 +30,7 @@ function Home() {
         <Typography
           className="animation"
           variant="h1"
-          style={{ textTransform: "uppercase" }}
+          style={{ textTransform: "uppercase", color: "#fff" }}
         >
           Welcome to Hotel
         </Typography>

@@ -4,7 +4,7 @@ export interface BookingInterface{
     ID?: number,
     Room?: RoomsInterface,
     RoomID?: number,
-    UserID?: number,
+    RegisterID?: number,
     FromDate?: Date,
     ToDate?: Date,
     NumberOfGuests?: number,

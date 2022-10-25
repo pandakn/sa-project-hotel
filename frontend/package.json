@@ -6,6 +6,7 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.9",
+    "@mui/lab": "^5.0.0-alpha.67",
     "@mui/material": "^5.10.7",
     "@mui/x-date-pickers": "^5.0.5",
     "@mui/x-date-pickers-pro": "^5.0.5",
@@ -16,9 +17,12 @@
     "@types/node": "^16.11.62",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "antd": "^4.23.6",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
@@ -48,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-datepicker": "^4.4.2"
   }
 }

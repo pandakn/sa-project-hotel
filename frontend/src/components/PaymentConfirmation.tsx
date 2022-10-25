@@ -9,12 +9,12 @@ import PaymentDatetimePicker from "./PaymentDatetimePicker";
 
 import qrCode from "../assets/images/qrcode_payment.jpg"
 
-export default function BasicTextFields() {
+function PaymentConfirmation() {
 
-  const location = useLocation()
-  const { RoomNumber } = location.state
+  // const location = useLocation()
+  // const { RoomNumber } = location.state
 
-  console.log("Room Number", RoomNumber);
+  // console.log("Room Number", RoomNumber);
   
   
   return (
@@ -25,7 +25,7 @@ export default function BasicTextFields() {
           m: 1,
           width: "100%",
           display: "flex",
-          flexDirection: "column",
+          // flexDirection: "column",
           alignItems: "center",
           gap: "1rem",
         }}
@@ -64,3 +64,5 @@ export default function BasicTextFields() {
     </>
   );
 }
+
+export default PaymentConfirmation;
