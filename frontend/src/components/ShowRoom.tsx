@@ -15,7 +15,6 @@ import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { RoomTypesInterface } from "../models/IRoomTypes";
 import { GetRoomTypes } from "../services/HttpClientService";
 
-import PaymentConfirmation from "./PaymentConfirmation";
 import { Dayjs } from "dayjs";
 
 type Props = {

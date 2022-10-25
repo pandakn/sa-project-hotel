@@ -66,19 +66,6 @@ func GetRoom(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": room})
 }
 
-// GET /user/:id
-// func GetRoomByType(c *gin.Context) {
-// 	var room entity.Room
-// 	id := c.Param("id")
-// 	// roomType :
-
-// 	if err := entity.DB().Preload("RoomZone").Preload("RoomType").Preload("Admin").Raw("SELECT * FROM rooms WHERE id = ?", id).First(&room).Error; err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-// 	c.JSON(http.StatusOK, gin.H{"data": room})
-// }
-
 // GET /rooms
 func ListRooms(c *gin.Context) {
 	var rooms []entity.Room
@@ -88,4 +75,17 @@ func ListRooms(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": rooms})
+}
+
+func UpdateStatus(c *gin.Context) {
+	// var room entity.Room
+	id := c.Param("id")
+	status := c.Param("status")
+
+	if err := entity.DB().Model(&entity.Room{}).Where("id=?", id).Update("status", status).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": status})
 }

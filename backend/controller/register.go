@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/pandakn/sa-65-example/entity"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func CreateRegis(c *gin.Context) {
@@ -33,15 +34,16 @@ func CreateRegis(c *gin.Context) {
 		return
 	}
 
+	password, _ := bcrypt.GenerateFromPassword([]byte(register.Password), 14)
 
 	rg := entity.Register{
-		Gender:   gender,
-		Status:      status,
-		Province:	province,
+		Gender:    gender,
+		Status:    status,
+		Province:  province,
 		FirstName: register.FirstName,
-		LastName: register.LastName,
-		Email: register.Email,
-		Password: register.Password,
+		LastName:  register.LastName,
+		Email:     register.Email,
+		Password:  string(password),
 	}
 
 	if err := entity.DB().Create(&rg).Error; err != nil {

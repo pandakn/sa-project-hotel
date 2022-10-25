@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import { Snackbar, Select, Typography, Button, FormGroup, Checkbox, FormControlLabel, Alert, SelectChangeEvent } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { GetAdminByID } from "../services/HttpClientService";
+import { GetAdminByID, UpdateRoomStatus } from "../services/HttpClientService";
 // import Radio from '@mui/material/Radio';
 // import RadioGroup from '@mui/material/RadioGroup';
 
@@ -95,6 +95,9 @@ function CheckOut() {
           setError(true);
         }
       });
+
+      UpdateRoomStatus(0, Number(checkout?.Booking?.RoomID));
+      console.log(checkout?.Booking?.RoomID)
   }
 
   console.log(checkout)

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BookingInterface } from "../modelsBooking/IBooking";
-import { GetUserByID } from "../services/HttpClientService"
-import PaymentConfirmation from "./PaymentConfirmation";
+import { PaymentsInterface } from "../modelsBooking/IPayment";
+import { GetUserByID } from "../services/HttpClientService";
+import SendIcon from "@mui/icons-material/Send";
+
+import qrCode from "../assets/images/qrcode_payment.jpg";
 
 import {
   Box,
@@ -15,21 +18,26 @@ import {
   SelectChangeEvent,
   Snackbar,
 } from "@mui/material";
-import { MuiDateRangePicker } from "./MuiDateRangePicker";
-import NumberOfGuests from "./NumberOfGuests";
-import RoomAvailable from "./RoomAvailable";
 import { Link } from "react-router-dom";
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DateRangePicker, DateRange } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
+import {
+  DateRangePicker,
+  DateRange,
+} from "@mui/x-date-pickers-pro/DateRangePicker";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
 import { RoomsInterface } from "../models/IRoom";
 import { RegisterInterface } from "../modelsRegister/IRegister";
-import { GetRooms, GetRoomTypes } from "../services/HttpClientService";
+import {
+  GetRooms,
+  UpdateRoomStatus,
+  CreatePayment,
+} from "../services/HttpClientService";
 
 import ShowRoom from "./ShowRoom";
-  import { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
+import { DateTimePicker } from "@mui/x-date-pickers";
 
 // type Prop = {
 //   type: string;
@@ -46,16 +54,39 @@ const apiUrl = "http://localhost:8080";
 
 const Booking = () => {
   const [booking, setBooking] = useState<BookingInterface>({});
+  const [payment, setPayment] = useState<Partial<PaymentsInterface>>({});
   const [room, setRoom] = useState<Partial<RoomsInterface[]>>([]);
   const [date, setDate] = React.useState<DateRange<Dayjs | Date>>([null, null]);
-  const [user, setUser] = useState<RegisterInterface[]>([])
+  const [user, setUser] = useState<RegisterInterface[]>([]);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [roomStatus, setRoomStatus] = useState(1);
+  const [datePayment, setDatePayment] = useState<Date>(new Date());
 
-  console.log("date", date);
-  console.log("booking", booking);
-  console.log("user", user);
-  // console.log(room);
+  console.log("payment", payment.UrlPhoto)
+
+  const handleUploadChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): Promise<any> => {
+    const files = event.target.files;
+    console.log(event.target.name)
+    console.log(event.target.value)
+
+    if (!event.target.files || event.target.files.length === 0) {
+      console.error("Select a file");
+      return;
+    }
+
+    const fileLoaded = URL.createObjectURL(event.target.files[0]);
+    console.log("files: ", files);
+    console.log("filesLoad: ", typeof fileLoaded);
+
+    const name = event.target.name as keyof typeof payment;
+    setPayment({
+      ...payment,
+      [name]: fileLoaded,
+    });
+  };
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -76,9 +107,9 @@ const Booking = () => {
 
   const fetchAdminByID = async () => {
     let res = await GetUserByID();
-    booking.RegisterID = res.ID
+    booking.RegisterID = res.ID;
     console.log("user id", res);
-    if (res) {  
+    if (res) {
       setUser(res);
     }
   };
@@ -98,7 +129,16 @@ const Booking = () => {
     });
   };
 
-  const submit = () => {
+  const submit = async () => {
+    let dataPayment = {
+      DateTime: datePayment,
+      Amount: Number(payment.Amount),
+      UrlPhoto: payment.UrlPhoto!,
+    };  
+
+    let res = await CreatePayment(dataPayment);
+    res ? setSuccess(true) : setError(true);
+
     let data = {
       RoomID: Number(booking.RoomID),
       RegisterID: Number(booking.RegisterID),
@@ -129,6 +169,11 @@ const Booking = () => {
           setError(true);
         }
       });
+
+    UpdateRoomStatus(roomStatus, data.RoomID);
+
+    // setRoomStatus(0)
+    window.location.reload();
   };
 
   return (
@@ -232,7 +277,7 @@ const Booking = () => {
             </option>
             {room
               .filter((item) => {
-                return item?.Status === false;
+                return item?.Status === 0;
               })
               .map((item, idx) => (
                 <option key={item?.ID} value={item?.ID}>
@@ -252,7 +297,7 @@ const Booking = () => {
         >
           {room
             .filter((item) => {
-              return item?.Status === false;
+              return item?.Status === 0;
             })
             .map((item) => (
               <Grid item xs={2} sm={4} md={4} key={item?.ID}>
@@ -269,8 +314,75 @@ const Booking = () => {
               </Grid>
             ))}
         </Grid>
-      <PaymentConfirmation />
+        {/* <PaymentConfirmation /> */}
+        <Box
+          component="form"
+          sx={{
+            m: 1,
+            width: "100%",
+            display: "flex",
+            // flexDirection: "column",
+            alignItems: "center",
+            gap: "1rem",
+          }}
+        >
+          <img
+            src={qrCode}
+            alt="qrCOde"
+            style={{
+              width: "250px",
+              padding: "30px",
+            }}
+          />
+          {/* <PaymentDatetimePicker /> */}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              label="วันและเวลาที่โอน"
+              value={datePayment}
+              onChange={(newValue: any) => {
+                setDatePayment(newValue);
+              }}
+            />
+          </LocalizationProvider>
+
+          <TextField
+            id="Amount"
+            label="จำนวนเงิน(Bath)"
+            value={payment.Amount}
+            onChange={(e: any) => {
+              console.log(e.target.value);
+              setPayment({
+                ...payment,
+                Amount: e.target.value,
+              });
+            }}
+            style={{
+              width: "266px",
+              height: "56",
+            }}
+          />
+
+          <Button variant="contained" component="label" size="large">
+            {/* Upload */}
+            <input
+              name="UrlPhoto"
+              type="file"
+              onChange={handleUploadChange}
+              accept="image/jpg,.gif,.png,.svg,.webp audio/wav,.mp3"
+            />
+          </Button>
+          <Button
+            onClick={submit}
+            variant="contained"
+            size="large"
+            endIcon={<SendIcon />}
+          >
+            Send
+          </Button>
+        </Box>
       </Box>
+      <img src={payment.UrlPhoto} />
     </Box>
   );
 };
