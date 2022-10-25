@@ -248,7 +248,6 @@ function App() {
                   Email:
                 </FormLabel>
                 <TextField
-                  id="outlined-basic"
                   label="กรุณาป้อนอีเมล"
                   variant="outlined"
                   required
@@ -256,7 +255,7 @@ function App() {
                     setEm(event.target.value);
                   }}
                   fullWidth
-                  type="email"
+                  type="Email" id="email"
                 />
               </Grid>
               {/*==============================================(password)====================================================*/}
@@ -392,15 +391,10 @@ function App() {
                 md={12}
                 sx={{ justifyContent: "center", margin: 1 }}
               >
-                
-
-           
                  <Button variant="contained" size="large" onClick={submit} 
-                 component ={RouterLink}
-                 to = "/booking">
+                 >
                   สมัครสมาชิก
                 </Button>
-                
               </Grid>
             </Grid>
           </Paper>
