@@ -1,5 +1,6 @@
 import { RoomsInterface } from "../models/IRoom";
 import { LoginInterface } from "../models/ILogin";
+import { PaymentsInterface } from "../modelsBooking/IPayment";
 
 const apiUrl = "http://localhost:8080";
 
@@ -84,6 +85,16 @@ const GetRoomZones = async () => {
   return res;
 };
 
+const GetRoomPayments = async () => {
+  let res = await fetch(`${apiUrl}/payments`, requestOptionsGet)
+    .then((response) => response.json())
+    .then((result) => {
+      return result.data ? result.data : false;
+    });
+
+  return res;
+};
+
 const GetAdminByID = async () => {
   const id = localStorage.getItem("uid");
 
@@ -141,6 +152,44 @@ const CreateRooms = async (data: RoomsInterface) => {
   return res;
 };
 
+const CreatePayment = async (data: PaymentsInterface) => {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/payments`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      return result.data ? result.data : false;
+    });
+
+  return res;
+};
+
+const UpdateRoomStatus = async (status: number, id: number) => {
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/update-room/${id}/${status}`, requestOptions )
+    .then((response) => response.json())
+    .then((result) => {
+      return result.data ? result.data : false;
+    });
+
+  return res;
+};
+
+
+
 export {
   GetAdminByID,
   GetRoomTypes,
@@ -150,4 +199,7 @@ export {
   GetRooms,
   UserLogin,
   GetUserByID,
+  UpdateRoomStatus,
+  CreatePayment,
+  GetRoomPayments
 };

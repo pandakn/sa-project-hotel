@@ -47,7 +47,7 @@ type Room struct {
 	AdminID *uint
 	Admin   Admin
 
-	Status bool
+	Status int
 
 	Bookings []Booking `gorm:"foreignKey:RoomID"`
 }

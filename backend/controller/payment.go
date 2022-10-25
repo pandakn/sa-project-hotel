@@ -7,6 +7,28 @@ import (
 	"github.com/pandakn/sa-65-example/entity"
 )
 
+// POST /rooms
+func CreatePayment(c *gin.Context) {
+	var payment entity.Payment
+
+	if err := c.ShouldBindJSON(&payment); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error not access": err.Error()})
+		return
+	}
+
+	pm := entity.Payment{
+		DateTime: payment.DateTime,
+		Amount:   payment.Amount,
+		UrlPhoto: payment.UrlPhoto,
+	}
+
+	if err := entity.DB().Create(&pm).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": pm})
+}
+
 // GET Payment/:id
 func GetPaymentByID(c *gin.Context) {
 	var payment entity.Payment

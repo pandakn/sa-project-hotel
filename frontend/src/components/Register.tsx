@@ -248,6 +248,11 @@ function App() {
                   Email:
                 </FormLabel>
                 <TextField
+<<<<<<< HEAD
+                  type="email"
+                  id="outlined-basic"
+=======
+>>>>>>> ed1d4fabd85ca59cb1da281aa245f79054ef671d
                   label="กรุณาป้อนอีเมล"
                   variant="outlined"
                   required
@@ -255,7 +260,7 @@ function App() {
                     setEm(event.target.value);
                   }}
                   fullWidth
-                  type="email"
+                  type="Email" id="email"
                 />
               </Grid>
               {/*==============================================(password)====================================================*/}

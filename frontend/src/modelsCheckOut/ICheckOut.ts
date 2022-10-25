@@ -6,11 +6,12 @@ export interface CheckOutInterface{
     ID?: number,
     Admin?: string,
     AdminID?: AdminInterface,
-    Booking?: number,
-    BookingID?: BookingInterface,
+
+    Booking?: BookingInterface,
+    BookingID?: number,
+    
     Fine?: number,
     FineID?: FineInterface,
     CheckOutTime?: Date,
     Price?: Float32Array 
-
 }
