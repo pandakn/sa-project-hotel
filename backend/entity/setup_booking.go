@@ -16,21 +16,18 @@ func MockUpBooking() {
 	PaymentA := Payment{
 		DateTime: DateTimePaymentA,
 		Amount:   1000,
-		UrlPhoto: "https://ibb.co/vHHFYHQ",
 	}
 	Db.Model(&Payment{}).Create(&PaymentA)
 
 	PaymentB := Payment{
 		DateTime: DateTimePaymentB,
 		Amount:   2000,
-		UrlPhoto: "https://ibb.co/LRt7F7s",
 	}
 	Db.Model(&Payment{}).Create(&PaymentB)
 
 	PaymentC := Payment{
 		DateTime: DateTimePaymentC,
 		Amount:   3000,
-		UrlPhoto: "https://ibb.co/Jmdwvsj",
 	}
 	Db.Model(&Payment{}).Create(&PaymentC)
 

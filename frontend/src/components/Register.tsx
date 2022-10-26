@@ -155,23 +155,33 @@ function App() {
       Province_ID: convertType(rg.Province_ID),
     };
     console.log(data);
-
+    const regexp = new RegExp(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     };
 
-    fetch(`${apiUrl}/users`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        console.log(res);
-        if (res.data) {
-          setSuccess(true);
-        } else {
-          setError(true);
-        }
-      });
+    console.log(regexp.test(data.Email + ""))
+
+    if (regexp.test(data.Email + "")) {
+      fetch(`${apiUrl}/users`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            setSuccess(true);
+          } 
+        });
+        setInterval(() => {
+          window.location.assign("/booking")
+        }, 1000)
+    } else {
+      setError(true);
+    }
+
   };
 
   return (
