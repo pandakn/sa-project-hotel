@@ -1,4 +1,5 @@
 import { RoomsInterface } from "../models/IRoom"
+import { PaymentsInterface } from "./IPayment"
 
 export interface BookingInterface{
     ID?: number,
@@ -10,4 +11,5 @@ export interface BookingInterface{
     NumberOfGuests?: number,
     BookingStatus?: string,
     PaymentID?: number
+    Payment?: PaymentsInterface
 }

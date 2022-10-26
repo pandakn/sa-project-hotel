@@ -85,7 +85,7 @@ const GetRoomZones = async () => {
   return res;
 };
 
-const GetRoomPayments = async () => {
+const GetPayments = async () => {
   let res = await fetch(`${apiUrl}/payments`, requestOptionsGet)
     .then((response) => response.json())
     .then((result) => {
@@ -199,5 +199,5 @@ export {
   GetUserByID,
   UpdateRoomStatus,
   CreatePayment,
-  GetRoomPayments,
+  GetPayments,
 };

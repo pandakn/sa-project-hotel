@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BookingInterface } from "../modelsBooking/IBooking";
 import { PaymentsInterface } from "../modelsBooking/IPayment";
-import { GetUserByID } from "../services/HttpClientService";
+import { GetPayments, GetUserByID } from "../services/HttpClientService";
 import SendIcon from "@mui/icons-material/Send";
 
 import qrCode from "../assets/images/qrcode_payment.jpg";
@@ -63,31 +63,6 @@ const Booking = () => {
   const [roomStatus, setRoomStatus] = useState(1);
   const [datePayment, setDatePayment] = useState<Date>(new Date());
 
-  console.log("payment", payment.UrlPhoto);
-
-  const handleUploadChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): Promise<any> => {
-    const files = event.target.files;
-    console.log(event.target.name);
-    console.log(event.target.value);
-
-    if (!event.target.files || event.target.files.length === 0) {
-      console.error("Select a file");
-      return;
-    }
-
-    const fileLoaded = URL.createObjectURL(event.target.files[0]);
-    console.log("files: ", files);
-    console.log("filesLoad: ", typeof fileLoaded);
-
-    const name = event.target.name as keyof typeof payment;
-    setPayment({
-      ...payment,
-      [name]: fileLoaded,
-    });
-  };
-
   const handleClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string
@@ -102,7 +77,6 @@ const Booking = () => {
   const fetchRooms = async () => {
     let res = await GetRooms();
     setRoom(res);
-    console.log(res);
   };
 
   const fetchAdminByID = async () => {
@@ -133,47 +107,47 @@ const Booking = () => {
     let dataPayment = {
       DateTime: datePayment,
       Amount: Number(payment.Amount),
-      UrlPhoto: payment.UrlPhoto!,
     };
 
-    let res = await CreatePayment(dataPayment);
-    res ? setSuccess(true) : setError(true);
+    let resPayment = await CreatePayment(dataPayment);
 
-    let data = {
-      RoomID: Number(booking.RoomID),
-      RegisterID: Number(booking.RegisterID),
-      PaymentID: 1,
-      FromDate: date[0],
-      ToDate: date[1],
-      // FromDate: "2022-09-01T00:00:00+07:00",
-      // ToDate: "2022-09-01T00:00:00+07:00",
-      NumberOfGuests: Number(booking.NumberOfGuests),
-      Status: "confirm",
-    };
+    if (resPayment) {
+      console.log("resPayment payment", resPayment.ID);
 
-    console.log(data);
+      let data = {
+        RoomID: Number(booking.RoomID),
+        RegisterID: Number(booking.RegisterID),
+        PaymentID: resPayment.ID,
+        FromDate: date[0],
+        ToDate: date[1],
+        // FromDate: "2022-09-01T00:00:00+07:00",
+        // ToDate: "2022-09-01T00:00:00+07:00",
+        NumberOfGuests: Number(booking.NumberOfGuests),
+        Status: "confirm",
+      };
 
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      };
 
-    fetch(`${apiUrl}/create_booking`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        console.log(res);
-        if (res.data) {
-          setSuccess(true);
-        } else {
-          setError(true);
-        }
-      });
+      fetch(`${apiUrl}/create_booking`, requestOptions)
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            setSuccess(true);
+          } else {
+            setError(true);
+          }
+        });
 
-    UpdateRoomStatus(roomStatus, data.RoomID);
-
-    // setRoomStatus(0)
-    window.location.reload();
+      UpdateRoomStatus(roomStatus, data.RoomID);
+      window.location.reload();
+    } else {
+      return;
+    }
   };
 
   return (
