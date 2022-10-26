@@ -47,6 +47,7 @@ function Home() {
             }}
           >
             <Button
+              className="btn-user"
               variant="contained"
               startIcon={<AccountCircleIcon sx={{ color: "#333" }} />}
               style={{
@@ -68,6 +69,7 @@ function Home() {
             }}
           >
             <Button
+              className="btn-admin"
               variant="contained"
               startIcon={<AdminPanelSettingsIcon />}
               style={{

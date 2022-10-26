@@ -1,18 +1,66 @@
 .animation {
   font-size: 3rem;
   text-transform: capitalize;
-  
+
   /* Animation */
   animation: title 1.8s ease;
 }
 
 @keyframes title {
-  0%   { 
+  0% {
     opacity: 0;
-      transform: translateY(50px); 
+    transform: translateY(50px);
   }
-  100% { 
-      transform: translateY(0); 
-      opacity: 1;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.btn-user {
+  animation: btnUser 1.6s ease;
+}
+
+.btn-user:hover {
+  scale: 1.05;
+}
+
+@keyframes btnUser {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  80% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.btn-admin {
+  animation: btnAdmin 1.6s ease;
+}
+
+.btn-admin:hover {
+  scale: 1.05;
+}
+
+@keyframes btnAdmin {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  80% {
+    transform: translateX(-5px);
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
