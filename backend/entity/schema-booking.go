@@ -6,26 +6,12 @@ import (
 	"gorm.io/gorm"
 )
 
-// type Register struct {
-// 	//RegisterID
-// 	gorm.Model
-// 	FirstName string
-// 	LastName  string
-// 	Gender    int
-// 	Status    int
-// 	Province  int
-// 	Password  string
-// 	Email     string    `gorm:"uniqueIndex"`
-// 	Bookings  []Booking `gorm:"foreignKey:RegisterID"`
-// }
-
 type Payment struct {
 	//ID String
 	gorm.Model
 	//------------------------
 	DateTime time.Time
 	Amount   int
-	UrlPhoto string
 	Bookings []Booking `gorm:"foreignKey:PaymentID"`
 }
 

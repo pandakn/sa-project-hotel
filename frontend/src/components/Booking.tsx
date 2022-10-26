@@ -63,14 +63,14 @@ const Booking = () => {
   const [roomStatus, setRoomStatus] = useState(1);
   const [datePayment, setDatePayment] = useState<Date>(new Date());
 
-  console.log("payment", payment.UrlPhoto)
+  console.log("payment", payment.UrlPhoto);
 
   const handleUploadChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ): Promise<any> => {
     const files = event.target.files;
-    console.log(event.target.name)
-    console.log(event.target.value)
+    console.log(event.target.name);
+    console.log(event.target.value);
 
     if (!event.target.files || event.target.files.length === 0) {
       console.error("Select a file");
@@ -134,7 +134,7 @@ const Booking = () => {
       DateTime: datePayment,
       Amount: Number(payment.Amount),
       UrlPhoto: payment.UrlPhoto!,
-    };  
+    };
 
     let res = await CreatePayment(dataPayment);
     res ? setSuccess(true) : setError(true);
@@ -217,7 +217,6 @@ const Booking = () => {
           gap: 3,
         }}
       >
-        {/* <MuiDateRangePicker /> */}
         <LocalizationProvider
           dateAdapter={AdapterDayjs}
           localeText={{ start: "Check-in", end: "Check-out" }}
@@ -286,7 +285,6 @@ const Booking = () => {
               ))}
           </Select>
         </Box>
-        <Button onClick={submit}>Book Now</Button>
       </Box>
 
       <Box sx={{ flexGrow: "1", margin: "1rem auto" }}>
@@ -321,9 +319,10 @@ const Booking = () => {
             m: 1,
             width: "100%",
             display: "flex",
-            // flexDirection: "column",
+            flexDirection: "row",
             alignItems: "center",
-            gap: "1rem",
+            justifyContent: "center",
+            gap: "7rem",
           }}
         >
           <img
@@ -335,54 +334,54 @@ const Booking = () => {
             }}
           />
           {/* <PaymentDatetimePicker /> */}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateTimePicker
-              renderInput={(props) => <TextField {...props} />}
-              label="วันและเวลาที่โอน"
-              value={datePayment}
-              onChange={(newValue: any) => {
-                setDatePayment(newValue);
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              // justifyContent: "center",
+              gap: "30px",
+            }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                renderInput={(props) => <TextField {...props} />}
+                label="วันและเวลาที่โอน"
+                value={datePayment}
+                onChange={(newValue: any) => {
+                  setDatePayment(newValue);
+                }}
+              />
+            </LocalizationProvider>
+            <TextField
+              id="Amount"
+              label="จำนวนเงิน(บาท)"
+              value={payment.Amount}
+              onChange={(e: any) => {
+                console.log(e.target.value);
+                setPayment({
+                  ...payment,
+                  Amount: e.target.value,
+                });
+              }}
+              style={{
+                width: "266px",
+                height: "56",
               }}
             />
-          </LocalizationProvider>
-
-          <TextField
-            id="Amount"
-            label="จำนวนเงิน(Bath)"
-            value={payment.Amount}
-            onChange={(e: any) => {
-              console.log(e.target.value);
-              setPayment({
-                ...payment,
-                Amount: e.target.value,
-              });
-            }}
-            style={{
-              width: "266px",
-              height: "56",
-            }}
-          />
-
-          <Button variant="contained" component="label" size="large">
-            {/* Upload */}
-            <input
-              name="UrlPhoto"
-              type="file"
-              onChange={handleUploadChange}
-              accept="image/jpg,.gif,.png,.svg,.webp audio/wav,.mp3"
-            />
-          </Button>
-          <Button
-            onClick={submit}
-            variant="contained"
-            size="large"
-            endIcon={<SendIcon />}
-          >
-            Send
-          </Button>
+            <Button
+              variant="contained"
+              onClick={submit}
+              style={{
+                width: "200px",
+                height: "60px",
+                marginLeft: "35px",
+              }}
+            >
+              Book Now
+            </Button>
+          </Box>
         </Box>
       </Box>
-      <img src={payment.UrlPhoto} />
     </Box>
   );
 };

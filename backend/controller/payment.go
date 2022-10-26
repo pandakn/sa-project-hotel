@@ -19,7 +19,6 @@ func CreatePayment(c *gin.Context) {
 	pm := entity.Payment{
 		DateTime: payment.DateTime,
 		Amount:   payment.Amount,
-		UrlPhoto: payment.UrlPhoto,
 	}
 
 	if err := entity.DB().Create(&pm).Error; err != nil {
