@@ -327,6 +327,7 @@ const Booking = () => {
               />
             </LocalizationProvider>
             <TextField
+              required
               id="Amount"
               label="จำนวนเงิน(บาท)"
               value={payment.Amount}
