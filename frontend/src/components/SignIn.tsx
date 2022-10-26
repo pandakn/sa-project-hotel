@@ -24,13 +24,13 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   ref
 ) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-}); 
+});
 
 const theme = createTheme();
 
 type Prop = {
-  signIn: any,
-}
+  signIn: any;
+};
 
 function SignIn({ signIn }: Prop) {
   // Partial จะช่วยให้ ทุกฟิลด์ใน interface กลายเป็น optional
@@ -39,12 +39,12 @@ function SignIn({ signIn }: Prop) {
   const [error, setError] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
 
-  // check location 
+  // check location
   const location = useLocation();
 
-  const checkLocation  = () => {
+  const checkLocation = () => {
     location.pathname === "/booking" && setOpenRegister(!openRegister);
-  }
+  };
 
   useEffect(() => {
     checkLocation();
@@ -173,6 +173,24 @@ function SignIn({ signIn }: Prop) {
               >
                 Sign In
               </Button>
+
+              {/* if openRegister === true จะให้โชว์ Create Account */}
+              {openRegister && (
+                <Box sx={{ mb: 2, display: "flex", justifyContent: "center" }}>
+                  <Button>
+                    <Link
+                      to="/register"
+                      style={{
+                        color: "#252525",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Create Account
+                    </Link>
+                  </Button>
+                </Box>
+              )}
+
               <Link
                 to="/"
                 style={{
@@ -184,21 +202,6 @@ function SignIn({ signIn }: Prop) {
               >
                 Back
               </Link>
-
-              {openRegister && (
-                <Link
-                  to="/register"
-                  style={{
-                    color: "#252525",
-                    textDecoration: "none",
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: 20
-                  }}
-                >
-                  Create Account
-                </Link>
-              )}
             </Box>
           </Box>
         </Grid>
