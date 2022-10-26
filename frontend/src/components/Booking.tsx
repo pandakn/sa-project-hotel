@@ -382,7 +382,6 @@ const Booking = () => {
           </Button>
         </Box>
       </Box>
-      <img src={payment.UrlPhoto} />
     </Box>
   );
 };

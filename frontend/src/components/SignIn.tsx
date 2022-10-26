@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -37,6 +37,18 @@ function SignIn({ signIn }: Prop) {
   const [login, setLogin] = useState<Partial<LoginInterface>>({});
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
+
+  // check location 
+  const location = useLocation();
+
+  const checkLocation  = () => {
+    location.pathname === "/booking" && setOpenRegister(!openRegister);
+  }
+
+  useEffect(() => {
+    checkLocation();
+  }, []);
 
   const handleInputChange = (
     event: React.ChangeEvent<{ id?: string; value: any }>
@@ -172,19 +184,21 @@ function SignIn({ signIn }: Prop) {
               >
                 Back
               </Link>
-              <Link
-                to="/register"
-                style={{
-                  color: "#252525",
-                  textDecoration: "none",
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: 20
-                }}
-              >
-                Create Account
-              </Link>
 
+              {openRegister && (
+                <Link
+                  to="/register"
+                  style={{
+                    color: "#252525",
+                    textDecoration: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: 20
+                  }}
+                >
+                  Create Account
+                </Link>
+              )}
             </Box>
           </Box>
         </Grid>

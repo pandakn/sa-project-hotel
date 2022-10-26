@@ -10,21 +10,19 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import { RegisterInterface } from "../modelsRegister/IRegister"
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import { RegisterInterface } from "../modelsRegister/IRegister";
 import { GenderInterface } from "../modelsRegister/IGender";
 import { StatusInterface } from "../modelsRegister/IStatus";
 import { ProvinceInterface } from "../modelsRegister/IProvince";
 import { Link as RouterLink } from "react-router-dom";
 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
-
-
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -32,7 +30,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 ) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
 
 function App() {
   // =========================(Use State)====================================================
@@ -50,11 +47,9 @@ function App() {
   const [error, setError] = useState(false);
 
   const [pass, setPass] = React.useState<State>({
-    password: '',
+    password: "",
     showPassword: false,
   });
-
-
 
   // ==============================(handle password)=====================================
 
@@ -62,7 +57,6 @@ function App() {
     password: string;
     showPassword: boolean;
   }
-
 
   const handlePassword =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,11 +70,11 @@ function App() {
     });
   };
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
-
-
 
   // =========================(handleClose)====================================================
 
@@ -178,9 +172,6 @@ function App() {
           setError(true);
         }
       });
-
-
-
   };
 
   return (
@@ -235,7 +226,6 @@ function App() {
                   }}
                 />
               </Grid>
-
             </Grid>
             {/*===========================================(email)=======================================================*/}
             <Grid container spacing={1}>
@@ -248,11 +238,8 @@ function App() {
                   Email:
                 </FormLabel>
                 <TextField
-<<<<<<< HEAD
                   type="email"
                   id="outlined-basic"
-=======
->>>>>>> ed1d4fabd85ca59cb1da281aa245f79054ef671d
                   label="กรุณาป้อนอีเมล"
                   variant="outlined"
                   required
@@ -260,10 +247,6 @@ function App() {
                     setEm(event.target.value);
                   }}
                   fullWidth
-<<<<<<< HEAD
-=======
-                  type="Email" id="email"
->>>>>>> ed1d4fabd85ca59cb1da281aa245f79054ef671d
                 />
               </Grid>
               {/*==============================================(password)====================================================*/}
@@ -272,13 +255,17 @@ function App() {
                 md={9}
                 sx={{ display: "flex", alignItems: "center", margin: 1 }}
               >
-
-                <InputLabel htmlFor="outlined-adornment-password" sx={{ marginRight: 3, fontSize: 17 }}>Password:</InputLabel>
+                <InputLabel
+                  htmlFor="outlined-adornment-password"
+                  sx={{ marginRight: 3, fontSize: 17 }}
+                >
+                  Password:
+                </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-password"
-                  type={pass.showPassword ? 'text' : 'password'}
+                  type={pass.showPassword ? "text" : "password"}
                   value={pass.password}
-                  onChange={handlePassword('password')}
+                  onChange={handlePassword("password")}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -316,7 +303,6 @@ function App() {
                     name: "Gender_ID",
                   }}
                 >
-
                   {gen.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
                       {item.Gender}
@@ -381,7 +367,6 @@ function App() {
                   }}
                   fullWidth
                 >
-
                   {prv.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
                       {item.Province}
@@ -399,8 +384,7 @@ function App() {
                 md={12}
                 sx={{ justifyContent: "center", margin: 1 }}
               >
-                 <Button variant="contained" size="large" onClick={submit} 
-                 >
+                <Button variant="contained" size="large" onClick={submit}>
                   สมัครสมาชิก
                 </Button>
               </Grid>

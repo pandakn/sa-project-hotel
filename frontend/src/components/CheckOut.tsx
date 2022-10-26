@@ -95,9 +95,6 @@ function CheckOut() {
           setError(true);
         }
       });
-
-      UpdateRoomStatus(0, Number(checkout?.Booking?.RoomID));
-      console.log(checkout?.Booking?.RoomID)
   }
 
   console.log(checkout)

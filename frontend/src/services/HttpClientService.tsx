@@ -179,7 +179,7 @@ const UpdateRoomStatus = async (status: number, id: number) => {
     },
   };
 
-  let res = await fetch(`${apiUrl}/update-room/${id}/${status}`, requestOptions )
+  let res = await fetch(`${apiUrl}/update-room/${id}/${status}`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
       return result.data ? result.data : false;
@@ -187,8 +187,6 @@ const UpdateRoomStatus = async (status: number, id: number) => {
 
   return res;
 };
-
-
 
 export {
   GetAdminByID,
@@ -201,5 +199,5 @@ export {
   GetUserByID,
   UpdateRoomStatus,
   CreatePayment,
-  GetRoomPayments
+  GetRoomPayments,
 };

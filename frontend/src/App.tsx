@@ -4,13 +4,12 @@ import { Router, Routes, Route, Link } from "react-router-dom";
 import Index from "./routes/Index";
 import Admin from "./routes/Admin";
 import User from "./routes/User";
-import Login from "./components/SignIn";
 import CreateRoom from "./components/CreateRoom";
 import CreateEmployee from "./components/CreateEmployee";
-import Booking from "./components/Booking";
 import CheckInIndex from "./components/CheckInIndex";
 import CheckOut from "./components/CheckOut";
 import Register from "./components/Register";
+import DashBoard from "./components/DashBoard";
 
 function App() {
   return (
@@ -18,8 +17,8 @@ function App() {
       <Route path="/" element={<Index />} />
       <Route path="/booking" element={<User />}></Route>
       <Route path="/register" element={<Register />} />
-      {/* <Route path="/booking" element={<Booking />} /> */}
       <Route path="/admin" element={<Admin />}>
+        <Route index element={<DashBoard />} />
         <Route path="create-room" element={<CreateRoom />} />
         <Route path="create-employee" element={<CreateEmployee />} />
         <Route path="check-in" element={<CheckInIndex />} />
