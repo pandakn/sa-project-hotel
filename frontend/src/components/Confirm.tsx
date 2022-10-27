@@ -202,15 +202,6 @@ function Confirm() {
                 rowsPerPageOptions={[5]}
               />
             </div>
-            {/* =============================================== */}
-
-            {/* =================================================== */}
-            <Grid item xs={4.5}>
-              {/* <Item>10/12/2022</Item> */}
-            </Grid>
-            <Grid item xs={3.5}></Grid>
-            {/* ===================================================== */}
-            <Grid item xs={3.7}></Grid>
             <Grid item xs={5} marginTop="10px" marginLeft="25px">
               <FormControl fullWidth variant="outlined">
                 <p>สถานะการชำระเงิน</p>
@@ -231,9 +222,6 @@ function Confirm() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={3.3}></Grid>
-            {/* ===================================================== */}
-            <Grid item xs={4.6}></Grid>
             <Grid item xs={7.4}>
               <Box
                 component="form"
@@ -254,9 +242,7 @@ function Confirm() {
               </Box>
             </Grid>
             {/* ===================================================== */}
-            <Grid item xs={12}>
               <hr />
-            </Grid>
           </Grid>
         </Paper>
       </Container>
