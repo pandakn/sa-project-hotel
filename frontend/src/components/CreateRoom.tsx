@@ -115,7 +115,7 @@ function CreateRoom() {
         >
           <Snackbar
             open={success}
-            autoHideDuration={6000}
+            autoHideDuration={1000}
             onClose={handleClose}
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           >
@@ -126,7 +126,7 @@ function CreateRoom() {
 
           <Snackbar
             open={error}
-            autoHideDuration={6000}
+            autoHideDuration={1000}
             onClose={handleClose}
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           >

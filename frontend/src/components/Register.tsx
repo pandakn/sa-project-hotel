@@ -18,11 +18,10 @@ import { RegisterInterface } from "../modelsRegister/IRegister";
 import { GenderInterface } from "../modelsRegister/IGender";
 import { StatusInterface } from "../modelsRegister/IStatus";
 import { ProvinceInterface } from "../modelsRegister/IProvince";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Link } from "react-router-dom";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -164,7 +163,7 @@ function App() {
       body: JSON.stringify(data),
     };
 
-    console.log(regexp.test(data.Email + ""))
+    console.log(regexp.test(data.Email + ""));
 
     if (regexp.test(data.Email + "")) {
       fetch(`${apiUrl}/users`, requestOptions)
@@ -173,15 +172,14 @@ function App() {
           console.log(res);
           if (res.data) {
             setSuccess(true);
-          } 
+          }
         });
-        setInterval(() => {
-          window.location.assign("/booking")
-        }, 1000)
+      setInterval(() => {
+        window.location.assign("/booking");
+      }, 1000);
     } else {
       setError(true);
     }
-
   };
 
   return (
@@ -392,11 +390,21 @@ function App() {
                 container
                 xs={12}
                 md={12}
+                gap={2}
                 sx={{ justifyContent: "center", margin: 1 }}
               >
                 <Button variant="contained" size="large" onClick={submit}>
                   สมัครสมาชิก
                 </Button>
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    style={{ backgroundColor: "#fff", color: "#1976d2" }}
+                  >
+                    กลับหน้าแรก
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
           </Paper>

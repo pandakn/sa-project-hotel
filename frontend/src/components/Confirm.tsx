@@ -119,7 +119,7 @@ function Confirm() {
   };
 
   const columns: GridColDef[] = [
-    { field: "ID", headerName: "ID", width: 100 },
+    { field: "ID", headerName: "Payment ID", width: 100 },
     { field: "Amount", headerName: "ราคา(บาท)", width: 100 },
     { field: "DateTime", headerName: "เวลา", width: 500 },
   ];
@@ -193,7 +193,7 @@ function Confirm() {
                 marginRight: "20px",
               }}
             >
-              <h3>รายการจองสถานที่</h3>
+              <h3>รายการชำระเงิน</h3>
               <DataGrid
                 rows={payment}
                 getRowId={(row) => row.ID}
