@@ -44,6 +44,9 @@ func SetupDatabase() {
 		&ExtraService{},
 		&ExtraBed{},
 		&CheckIn{},
+		// Confirmation
+		&Confirmation{},
+		&Verify{},
 	)
 
 	Db = database
@@ -54,4 +57,5 @@ func SetupDatabase() {
 	MockUpBooking()
 	LoadCheckOut()
 	LoadCheckIn()
+	LoadConfirmation()
 }

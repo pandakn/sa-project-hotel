@@ -6,6 +6,10 @@ var BookA Booking
 var BookB Booking
 var BookC Booking
 
+var PaymentA Payment
+var PaymentB Payment
+var PaymentC Payment
+
 func MockUpBooking() {
 	// Register Section ---------------------------------------------
 
@@ -13,19 +17,19 @@ func MockUpBooking() {
 	DateTimePaymentA := time.Date(2022, time.September, 01, 13, 23, 44, 0, time.Local)
 	DateTimePaymentB := time.Date(2022, time.October, 13, 11, 12, 01, 0, time.Local)
 	DateTimePaymentC := time.Date(2022, time.November, 12, 14, 56, 59, 0, time.Local)
-	PaymentA := Payment{
+	PaymentA = Payment{
 		DateTime: DateTimePaymentA,
 		Amount:   1000,
 	}
 	Db.Model(&Payment{}).Create(&PaymentA)
 
-	PaymentB := Payment{
+	PaymentB = Payment{
 		DateTime: DateTimePaymentB,
 		Amount:   2000,
 	}
 	Db.Model(&Payment{}).Create(&PaymentB)
 
-	PaymentC := Payment{
+	PaymentC = Payment{
 		DateTime: DateTimePaymentC,
 		Amount:   3000,
 	}

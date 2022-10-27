@@ -101,6 +101,14 @@ func main() {
 	r.GET("/extraservices", controller.ListExtraServices)
 	r.GET("/extraservice/:id", controller.GetExtraService)
 
+	// Confirmation Routes
+	r.GET("/verify/:id", controller.GetVerify)
+	r.GET("/verifies", controller.ListVerifys)
+
+	r.POST("/confirmation", controller.CreateConfirmation)
+	r.GET("/confirmation/:id", controller.GetConfirmation)
+	r.GET("/confirmations", controller.ListConfirmations)
+
 	// login User Route
 	r.POST("/login", controller.Login)
 	r.POST("/user-login", controller.UserLogin)

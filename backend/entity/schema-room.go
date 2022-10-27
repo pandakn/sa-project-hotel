@@ -7,14 +7,15 @@ import (
 type Admin struct {
 	gorm.Model
 	// ID       string
-	Name     string
-	Username string `gorm:"uniqueIndex"`
-	Password string
-	Avatar   string
-	Rooms    []Room     `gorm:"foreignKey:AdminID"`
-	Employee []Employee `gorm:"foreignKey:AdminID"`
-	CheckOut []CheckOut `gorm:"foreignKey:AdminID"`
-	CheckIn  []CheckIn  `gorm:"foreignKey:AdminID"`
+	Name          string
+	Username      string `gorm:"uniqueIndex"`
+	Password      string
+	Avatar        string
+	Rooms         []Room         `gorm:"foreignKey:AdminID"`
+	Employee      []Employee     `gorm:"foreignKey:AdminID"`
+	CheckOut      []CheckOut     `gorm:"foreignKey:AdminID"`
+	CheckIn       []CheckIn      `gorm:"foreignKey:AdminID"`
+	Confirmations []Confirmation `gorm:"foreignKey:AdminID"`
 }
 
 type RoomType struct {

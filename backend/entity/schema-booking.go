@@ -10,9 +10,10 @@ type Payment struct {
 	//ID String
 	gorm.Model
 	//------------------------
-	DateTime time.Time
-	Amount   int
-	Bookings []Booking `gorm:"foreignKey:PaymentID"`
+	DateTime      time.Time
+	Amount        int
+	Bookings      []Booking      `gorm:"foreignKey:PaymentID"`
+	Confirmations []Confirmation `gorm:"foreignKey:PaymentID"`
 }
 
 type Booking struct {
