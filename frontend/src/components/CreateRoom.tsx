@@ -28,7 +28,7 @@ function CreateRoom() {
   const [room, setRoom] = useState<RoomsInterface>({ RoomNumber: "" });
   const [roomZone, setRoomZone] = useState<RoomZonesInterface[]>([]);
   const [roomType, setRoomType] = useState<RoomTypesInterface[]>([]);
-  const [admin, setAdmin] = useState<Partial<AdminInterface>>({ Name: "" });
+  const [admin, setAdmin] = useState<AdminInterface>({ Name: "" });
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 

@@ -4,7 +4,7 @@ import { Box, List, ListItem, ListItemText } from "@mui/material";
 const menu = [
   { name: "ห้องพัก", path: "create-room" },
   { name: "พนักงาน", path: "create-employee" },
-  { name: "ตรวจสอบเงิน", path: "payment" },
+  { name: "ตรวจสอบเงิน", path: "confirmation" },
   { name: "Check In", path: "check-in" },
   { name: "Check Out", path: "check-out" },
 ];
