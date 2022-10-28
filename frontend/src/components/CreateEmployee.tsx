@@ -71,8 +71,8 @@ function App() {
 
   const handleChange = (event: SelectChangeEvent) => {
     const name = event.target.name as keyof typeof emp;  //เรารู้ type แล้วแต่เราต้องการใช้ keyของ emp
-    console.log(event.target.name);
-    console.log(event.target.value);
+    // console.log(event.target.name);
+    // console.log(event.target.value);
     setEmp({
       ...emp,                                             //เอาที่มีอยู่เดิมแล้วมาด้วย Spread Operator
       [name]: event.target.value,
@@ -84,7 +84,7 @@ function App() {
   const apiUrl = "http://localhost:8080";
   const requestOptionsGet = {
     method: "GET",
-    headers: { "Content-Type": "application/json" }, //
+    headers: { "Content-Type": "application/json" }, //เพื่อบอกว่าเป็นการส่ง ปบบ JASON นะ 
   };
 
   const fetchDepartment = async () => {
@@ -133,8 +133,8 @@ function App() {
       DepartmentID: convertType(emp.DepartmentID),
       PositionID: convertType(emp.PositionID),
     };
-    console.log(data);
-    console.log(JSON.stringify(data));
+    // console.log(data);
+    // console.log(JSON.stringify(data));
     
 
     const requestOptions = {
@@ -146,7 +146,7 @@ function App() {
     fetch(`${apiUrl}/employees`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data) {
           setSuccess(true);
         } else {
@@ -177,7 +177,7 @@ function App() {
           />
           <h4 style={{ color: "#6b7176" }}>Add Employee</h4>
         </Paper>
-        {/* *******************************************(Form)**************************************/}
+        {/******************************************************************(Form)*************************************************************/}
         <form>
           <Paper
             variant="outlined"
