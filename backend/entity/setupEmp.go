@@ -5,9 +5,6 @@ import (
 )
 
 func MockupEmp() {
-	// -------------------(Create value User_Admin)-----------------------------------
-
-	// -------------------(ค้นหา AdminID ด้วย User_name ที่เข้าระบบมาใส่ใน  Entity Employee)-------------------------------
 
 	// -------------------(Create value Position)-----------------------------------
 
@@ -108,7 +105,7 @@ func MockupEmp() {
 		Department: dept2,
 		Position:   post3,
 		Salary:     sal2,
-		Admin:      AdminA,
+		Admin:      AdminA, //ใช้ข้อมูลจาก schema-room โดยใช้ในส่วนของ Admin ที่ประกาศตัวแปรไว้แบบ global
 		Name:       "จารย์แดง กีต้าไฟ",
 		Gender:     "Male",
 		Age:        64,
