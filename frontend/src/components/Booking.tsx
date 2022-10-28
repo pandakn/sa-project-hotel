@@ -35,13 +35,9 @@ import {
   CreatePayment,
 } from "../services/HttpClientService";
 
-import ShowRoom from "./ShowRoom";
+import ShowRoom from "./Card";
 import { Dayjs } from "dayjs";
 import { DateTimePicker } from "@mui/x-date-pickers";
-
-// type Prop = {
-//   type: string;
-// };
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,

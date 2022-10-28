@@ -19,7 +19,7 @@ function Admin() {
   }, []);
 
   if (!token) {
-    return <SignIn signIn={Login} />;
+    return <SignIn signIn={Login} label="Username" />;
   }
 
   return (

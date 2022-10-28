@@ -30,9 +30,10 @@ const theme = createTheme();
 
 type Prop = {
   signIn: any;
+  label: string;
 };
 
-function SignIn({ signIn }: Prop) {
+function SignIn({ signIn, label }: Prop) {
   // Partial จะช่วยให้ ทุกฟิลด์ใน interface กลายเป็น optional
   const [login, setLogin] = useState<Partial<LoginInterface>>({});
   const [success, setSuccess] = useState(false);
@@ -144,8 +145,8 @@ function SignIn({ signIn }: Prop) {
                 margin="normal"
                 required
                 fullWidth
-                id="Username"
-                label="Username"
+                id={label}
+                label={label}
                 name="username"
                 autoComplete="username"
                 autoFocus

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Router, Routes, Route, Link } from "react-router-dom";
 
-import Admin from "./routes/Admin";
-import User from "./routes/User";
+import Admin from "./pages/Admin";
+import User from "./pages/User";
 import Home from "./components/Home";
 import CreateRoom from "./components/CreateRoom";
 import CreateEmployee from "./components/CreateEmployee";
