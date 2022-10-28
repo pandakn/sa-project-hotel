@@ -3,12 +3,14 @@ import { RoomsInterface } from "../models/IRoom";
 import { RoomTypesInterface } from "../models/IRoomTypes";
 import { RoomZonesInterface } from "../models/IRoomZones";
 import { AdminInterface } from "../models/IAdmins";
+
 import {
   GetAdminByID,
   GetRoomTypes,
   GetRoomZones,
   CreateRooms,
 } from "../services/HttpClientService";
+
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -25,7 +27,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 function CreateRoom() {
-  const [room, setRoom] = useState<RoomsInterface>({ RoomNumber: "" });
+  const [room, setRoom] = useState<RoomsInterface>({});
   const [roomZone, setRoomZone] = useState<RoomZonesInterface[]>([]);
   const [roomType, setRoomType] = useState<RoomTypesInterface[]>([]);
   const [admin, setAdmin] = useState<AdminInterface>({ Name: "" });
@@ -52,25 +54,19 @@ function CreateRoom() {
   };
 
   const fetchRoomTypes = async () => {
-    const response = await GetRoomTypes();
-    if (response) {
-      setRoomType(response);
-    }
+    const res = await GetRoomTypes();
+    res && setRoomType(res);
   };
 
   const fetchRoomZones = async () => {
-    const response = await GetRoomZones();
-    if (response) {
-      setRoomZone(response);
-    }
+    const res = await GetRoomZones();
+    res && setRoomZone(res);
   };
 
   const fetchAdminByID = async () => {
     let res = await GetAdminByID();
     room.AdminID = res.ID;
-    if (res) {
-      setAdmin(res);
-    }
+    res && setAdmin(res);
   };
 
   useEffect(() => {
@@ -79,7 +75,7 @@ function CreateRoom() {
     fetchAdminByID();
   }, []);
 
-  console.log(room);
+  // console.log(room);
 
   const convertType = (data: string | number | undefined) => {
     let val = typeof data === "string" ? parseInt(data) : data;
@@ -162,7 +158,7 @@ function CreateRoom() {
                 type="string"
                 fullWidth
                 id="roomNumber"
-                label="เลขห้อง"
+                label="หมายเลขห้อง"
                 value={room.RoomNumber}
                 onChange={(e) => {
                   console.log(e.target.value);
@@ -177,7 +173,7 @@ function CreateRoom() {
             {/* Room zone */}
             <Box
               sx={{
-                width: "300px",
+                width: "320px",
               }}
             >
               <Select
@@ -193,11 +189,11 @@ function CreateRoom() {
                 }}
               >
                 <option aria-label="None" value="">
-                  โซนห้องพัก
+                  กรุณาเลือกโซนห้องพัก
                 </option>
-                {roomZone.map((item, idx) => (
+                {roomZone.map((item: RoomZonesInterface) => (
                   <option key={item.ID} value={item.ID}>
-                    {item.Zone}
+                    {item.Description}
                   </option>
                 ))}
               </Select>
@@ -232,7 +228,7 @@ function CreateRoom() {
                 }}
               >
                 <option aria-label="None" value="">
-                  ประเภทห้องพัก
+                  กรุณาเลือกประเภทห้องพัก
                 </option>
                 {roomType.map((item) => (
                   <option key={item.ID} value={item.ID}>
