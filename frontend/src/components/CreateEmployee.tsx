@@ -40,7 +40,7 @@ function App() {
   const [emp, setEmp] = useState<EmployeeInterface>({});
   const [dept, setDept] = useState<DepartmentInterface[]>([]);
   const [post, setPost] = useState<PositionInterface[]>([]);
-  const [admin, setAdmin] = useState<Partial<AdminInterface>>({ Name: "" });
+  // const [admin, setAdmin] = useState<Partial<AdminInterface>>({}); //Partial -> ทำให้ filed เป็น Optional ได้ คือ สามารถเลือก filed มาบางส่วนได้
 
   const [first, setFirst] = useState<String>("");
   const [last, setLast] = useState<String>("");
@@ -70,15 +70,13 @@ function App() {
   // =========================(HandleChange)====================================================
 
   const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof emp;
+    const name = event.target.name as keyof typeof emp;  //เรารู้ type แล้วแต่เราต้องการใช้ keyของ emp
     console.log(event.target.name);
     console.log(event.target.value);
     setEmp({
-      ...emp,
+      ...emp,                                             //เอาที่มีอยู่เดิมแล้วมาด้วย Spread Operator
       [name]: event.target.value,
     });
-    console.log(emp.PositionID);
-    console.log(emp);
   };
 
   // =========================(Fetch API)====================================================
@@ -86,7 +84,7 @@ function App() {
   const apiUrl = "http://localhost:8080";
   const requestOptionsGet = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" }, //
   };
 
   const fetchDepartment = async () => {
@@ -107,9 +105,9 @@ function App() {
   const fetchAdminByID = async () => {
     let res = await GetAdminByID();
     emp.AdminID = res.ID;
-    if (res) {
-      setAdmin(res);
-    }
+    // if (res) {
+    //  setAdmin(res);
+    // }
   };
 
   useEffect(() => {
@@ -136,11 +134,13 @@ function App() {
       PositionID: convertType(emp.PositionID),
     };
     console.log(data);
+    console.log(JSON.stringify(data));
+    
 
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data), // แปลงเป็น JSON -> String แบบ Json
     };
 
     fetch(`${apiUrl}/employees`, requestOptions)
@@ -158,6 +158,8 @@ function App() {
   return (
     <div>
       <Container maxWidth="md" sx={{ marginTop: 6 }}>
+
+        {/* *******************************************(Head)**************************************/}
         <Paper
           elevation={4}
           sx={{
@@ -175,6 +177,7 @@ function App() {
           />
           <h4 style={{ color: "#6b7176" }}>Add Employee</h4>
         </Paper>
+        {/* *******************************************(Form)**************************************/}
         <form>
           <Paper
             variant="outlined"
@@ -408,6 +411,7 @@ function App() {
                   />
                 </LocalizationProvider>
               </Grid>
+              {/* ===========================================((Submit)================================================= */}
               <Grid
                 container
                 xs={12}
@@ -422,6 +426,7 @@ function App() {
           </Paper>
         </form>
       </Container>
+      {/* =========================================================(Alert)================================================= */}
       <Snackbar
         open={success}
         autoHideDuration={5000}

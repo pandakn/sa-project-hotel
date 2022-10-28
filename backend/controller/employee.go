@@ -16,7 +16,9 @@ func CreateEmployee(c *gin.Context) {
 	var salary entity.Salary
 	var admin entity.Admin
 
-	// ShouldBindJSON => เป็นการ bind request body ในรูป JSON กับ Struct
+	// ShouldBindJSON => เป็นการ bind request body ในรูป JSON กับ Struct(่JSON -> Struct)
+	//First -> เป็นการ select ข้อมูล โดยทำการบันทึกตัวแรกที่ตรงกับเงื่อนไขที่กำหนด เรียงลำดับตามคีย์หลัก
+	// Find -> ค้นหาและบันทึกตัวที่ตรงกับเงื่อนไขที่กำหนด(ทั้งหมดที่ตรงกับเงื่อนไข)  == Scan ก็ทำงานคล้ายกับ Find
 
 	if err := c.ShouldBindJSON(&employee); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error not access": err.Error()})
