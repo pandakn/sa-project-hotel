@@ -34,7 +34,7 @@ function User() {
   }, []);
 
   if (!token) {
-    return <SignIn signIn={UserLogin} label="Email" />;
+    return <SignIn signIn={UserLogin} />;
   }
 
   return (
