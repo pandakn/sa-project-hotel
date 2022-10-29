@@ -339,9 +339,9 @@ function App() {
                     name: "PositionID",
                   }}
                 >
-                  <MenuItem value="">
+                  {/* <MenuItem value="">
                     <em>None</em>
-                  </MenuItem>
+                  </MenuItem> */}
                   {post.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
                       {item.Name}
@@ -374,9 +374,9 @@ function App() {
                   }}
                   fullWidth
                 >
-                  <MenuItem value="">
+                  {/* <MenuItem value="">
                     <em>None</em>
-                  </MenuItem>
+                  </MenuItem> */}
                   {dept.map((item) => (
                     <MenuItem key={item.ID} value={item.ID}>
                       {item.DeptName}
